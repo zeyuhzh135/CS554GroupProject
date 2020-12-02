@@ -1,0 +1,26 @@
+{
+  "name": "cs554groupproject",
+  "version": "1.0.0",
+  "description": "CS54 Group Project, a quizlet like application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeyuhzh135/CS554GroupProject.git"
+  },
+  "author": "Group Emanon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeyuhzh135/CS554GroupProject/issues"
+  },
+  "homepage": "https://github.com/zeyuhzh135/CS554GroupProject#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
+    "password-hash": "^1.2.2"
+  }
+}
