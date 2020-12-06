@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const configRoutes = require('./routes');
 const session = require('express-session');
+const server = require('http').createServer(app);
 
 
 // app.use(
@@ -26,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 configRoutes(app);
 
-app.listen(3000, () => {
+server.listen(3000, () => {
 	console.log("This is the restful api, frontend will call this for service");
 	console.log('Your routes will be running on http://localhost:3000');
 });
