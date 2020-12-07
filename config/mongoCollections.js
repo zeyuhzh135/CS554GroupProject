@@ -15,5 +15,7 @@ const getCollectionFn = collection => {
 
 module.exports = {
     users: getCollectionFn("users"),
-    classes: getCollectionFn("classes")
+    classes: getCollectionFn("classes"),
+    privateMsg: getCollectionFn("privateMsg"),
+    groupMsg: getCollectionFn("groupMsg")
 };
