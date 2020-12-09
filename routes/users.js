@@ -3,10 +3,143 @@ const router = express.Router();
 const data = require('../data');
 const classData = data.classes;
 const userData = data.users;
+const passwordHash = require('password-hash');
 const { ObjectId } = require('mongodb');
 const xss = require('xss');
 
-router.get("/",async(req,res)=>{
-    res.status(500).json({a:"123"})
+// res.json={
+//     error: Boolean,
+//     erros:[],
+//     logged:Boolean,
+//     data:{}
+// }
+
+router.get('/signins'),async(req,res)=>{
+    console.log("123");
+    const users = await userData.getAllUsers();
+    res.status(500).json(users);
+};
+
+router.post('/signin',async(req,res)=>{
+    let loginfo = req.body;
+    let errors = [];
+
+    if(!loginfo.email) errors.push('No email');
+    if(!loginfo.password) errors.push('No password');
+    if(errors.length>0){
+        res.status(400).json({
+            error:true,
+            errors:errors,
+            logged:false,
+            data: null
+        });
+        return;
+    };
+    let user;
+    try{
+        user = await userData.getUserByEmail(loginfo.email.toLowerCase());
+    }catch(e){
+        res.status(500).json({
+            error:true,
+            errors:['Invalid email and/or password'],
+            logged:false,
+            data:null
+        });
+        return;
+    }
+    const comparedHashedPassword = passwordHash.verify(loginfo.password,user.passwordHash);
+    if(comparedHashedPassword){
+        // res.session.user = {firstName:user.firstName,lastName:user.lastName,userId:user._id};
+        // res.redirect('/');
+        res.status(200).json({
+            error:false,
+            errors:[],
+            logged:true,
+            data:user
+        })
+    }else{
+        res.status(500).json({
+            error:true,
+            errors:['Invalid email and/or password'],
+            logged:false,
+            data:null
+        });
+        return;
+    }
+
+});
+
+//register
+router.post('/',async(req,res)=>{
+    let newUser = req.body;
+    let errors = [];
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!newUser.firstName) errors.push('No first Name');
+    if(!newUser.lastName) errors.push('No last Name');
+    if(!newUser.email) errors.push('No email');
+    if(newUser.emaul && !emailRegex.test(newUser.email)) errors.push('Invalid email');
+    if (!newUser.password) errors.push('No password provided');
+    if(newUser.password && newUser.password.length < 8) errors.push('Password should contain at least 8 characters');
+    if (!newUser.password_confirm)  errors.push('No password confirmation provided');
+    if(newUser.password_confirm !== newUser.password)   errors.push('Passwords don\'t match');
+    if (!newUser.city)  errors.push('No city provided');
+    if (!newUser.state) errors.push('No state provided');
+    newUser.email = newUser.email.toLowerCase();
+    try{
+        const existingEmail =  await userData.getUserByEmail(newUser.email.toLowerCase());
+        if (existingEmail)
+            errors.push('An account with this email already exists.');
+    } catch(e) {}
+    
+    if (errors.length > 0) {
+		res.status(500).json( {
+		    error: true,
+			errors: errors,
+            logged: false,
+            data:null
+		});
+		return;
+    }
+    try {
+        const hashedPassword = passwordHash.generate(newUser.password);
+        await userData.addUser(xss(newUser.firstName), xss(newUser.lastName), xss(newUser.email.toLowerCase()),
+            hashedPassword, xss(newUser.city), xss(newUser.state));
+        let newRegister = await userData.getUserByEmail(newUser.email.toLowerCase());
+        res.status(200).json({
+            error:false,
+            errors:[],
+            logged:true,
+            data: newRegister
+        })
+    }catch(e){
+        res.status(500).json({error: e.toString()})
+  }
+});
+
+
+router.get('/profile/:userId', async(req,res)=>{
+    // if (req.params.userId !== req.session.user.userId) {
+    //     res.redirect('/');
+    //     return;
+    // }
+
+    //it's lazy binding and this is noSQL!
+    let user
+    try{
+        user = await userData.getUser(req.params.userId);
+    }catch(e){
+        res.status(400).json({
+            error:true,
+            errors:e,
+            logged:false,
+            data:null
+        })
+    }
+    res.status(200).json({
+        error:false,
+        errors:[],
+        logged:true,
+        data:user
+    })
 })
 module.exports = router;
