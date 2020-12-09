@@ -14,12 +14,6 @@ const xss = require('xss');
 //     data:{}
 // }
 
-router.get('/signins'),async(req,res)=>{
-    console.log("123");
-    const users = await userData.getAllUsers();
-    res.status(500).json(users);
-};
-
 router.post('/signin',async(req,res)=>{
     let loginfo = req.body;
     let errors = [];
