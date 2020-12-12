@@ -22,7 +22,7 @@ const Login = () => {
     const handleLogin = async ()=>{
         try{
             //input validation!
-            let apiRes = await axios.post('http://localhost:4000/users/signin',{email:email.value,password:password.value});
+            let apiRes = await axios.post('/users/signin',{email:email.value,password:password.value});
             if(!apiRes.data.error){
                 setRedirectToHome(true);
             }

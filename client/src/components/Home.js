@@ -12,7 +12,7 @@ const Home = () => {
 		setLoading(true);
 		async function getclasses(){
 			try{
-				let apires = await axios.get('http://localhost:4000/classes');
+				let apires = await axios.get('/classes');
 				setClassList(apires.data.data);
 				settheUser(apires.data.data.user);
 			}catch(e){

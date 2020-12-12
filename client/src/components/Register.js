@@ -28,7 +28,7 @@ const Register = () => {
         //do the input validation?
         //let apiResponse = await axios.get('http://localhost:4000/classes/5fcbd558cca0331d0a3a3685');
         try{
-            let apiResponse = await axios.post('http://localhost:4000/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
+            let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
             if(!apiResponse.data.error){
                 setRedirectToHome(true);
             }
