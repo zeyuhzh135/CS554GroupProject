@@ -21,7 +21,7 @@ router.post('/signin',async(req,res)=>{
     if(!loginfo.email) errors.push('No email');
     if(!loginfo.password) errors.push('No password');
     if(errors.length>0){
-        res.status(400).json({
+        res.status(200).json({
             error:true,
             errors:errors,
             logged:false,
@@ -33,7 +33,7 @@ router.post('/signin',async(req,res)=>{
     try{
         user = await userData.getUserByEmail(loginfo.email.toLowerCase());
     }catch(e){
-        res.status(500).json({
+        res.status(200).json({
             error:true,
             errors:['Invalid email and/or password'],
             logged:false,
@@ -43,8 +43,9 @@ router.post('/signin',async(req,res)=>{
     }
     const comparedHashedPassword = passwordHash.verify(loginfo.password,user.passwordHash);
     if(comparedHashedPassword){
-        // res.session.user = {firstName:user.firstName,lastName:user.lastName,userId:user._id};
-        // res.redirect('/');
+        req.session.user = {firstName:user.firstName,lastName:user.lastName,userId:user._id};
+        // console.log('in user');
+        // console.log(req.session.user);
         res.status(200).json({
             error:false,
             errors:[],
@@ -52,7 +53,7 @@ router.post('/signin',async(req,res)=>{
             data:user
         })
     }else{
-        res.status(500).json({
+        res.status(200).json({
             error:true,
             errors:['Invalid email and/or password'],
             logged:false,
@@ -86,7 +87,7 @@ router.post('/',async(req,res)=>{
     } catch(e) {}
     
     if (errors.length > 0) {
-		res.status(500).json( {
+		res.status(200).json( {
 		    error: true,
 			errors: errors,
             logged: false,
@@ -99,6 +100,7 @@ router.post('/',async(req,res)=>{
         await userData.addUser(xss(newUser.firstName), xss(newUser.lastName), xss(newUser.email.toLowerCase()),
             hashedPassword, xss(newUser.city), xss(newUser.state));
         let newRegister = await userData.getUserByEmail(newUser.email.toLowerCase());
+        req.session.user = {firstName:newRegister.firstName,lastName:newRegister.lastName,userId:newRegister._id}
         res.status(200).json({
             error:false,
             errors:[],

@@ -9,12 +9,16 @@ const { addStudentToClass } = require('../data/classes');
 
 router.get('/',async(req,res)=>{
     let classesList = await classData.getAllClasses();
-    let logged = false;
-    //let logged = req.session.user? true:false;
+    let user;
+    let logged = req.session.user? true:false;
+    if(logged) user=req.session.user;
+    // console.log('in classes');
+    // console.log(user);
     res.status(200).json({
         error:false,
         errors:[],
         logged:logged,
+        user:user,
         data:classesList
     })
 });
