@@ -14,6 +14,36 @@ const xss = require('xss');
 //     data:{}
 // }
 
+router.post("/joinClass", async (req,res)=>{
+    if(req.session.user){
+        let userId = req.session.user.userId;
+        let classId = req.body.classId;
+        try {
+            let result = await userData.addClassToUser(userId,classId)
+        }catch (e){
+            res.status(400).json({
+                error:true,
+                errors:e,
+                logged:true,
+                data:null
+            })
+        }
+        res.status(200).json({
+            error:false,
+            errors:[],
+            logged:true,
+            data:null
+        })
+    }else {
+        res.status(200).json({
+            error:true,
+            errors:['You need to login first'],
+            logged:false,
+            data:null
+        });
+    }
+})
+
 router.post('/signin',async(req,res)=>{
     let loginfo = req.body;
     let errors = [];
@@ -85,7 +115,7 @@ router.post('/',async(req,res)=>{
         if (existingEmail)
             errors.push('An account with this email already exists.');
     } catch(e) {}
-    
+
     if (errors.length > 0) {
 		res.status(200).json( {
 		    error: true,
@@ -112,6 +142,35 @@ router.post('/',async(req,res)=>{
   }
 });
 
+//get user info by session
+router.get('/profile',async (req,res)=>{
+    if(req.session.user){
+        let user;
+        try {
+            user = await  userData.getUser(req.session.user.userId)
+        }catch (e){
+            res.status(400).json({
+                error:true,
+                errors:e,
+                logged:true,
+                data:null
+            })
+        }
+        res.status(200).json({
+            error:false,
+            errors:[],
+            logged:true,
+            data:user
+        })
+    }else {
+        res.status(200).json({
+            error:true,
+            errors:['You need to login first'],
+            logged:false,
+            data:null
+        });
+    }
+})
 
 router.get('/profile/:userId', async(req,res)=>{
     // if (req.params.userId !== req.session.user.userId) {

@@ -25,6 +25,7 @@ const Login = () => {
             let apiRes = await axios.post('/users/signin',{email:email.value,password:password.value});
             if(!apiRes.data.error){
                 setRedirectToHome(true);
+                alert("login success")
             }
         }catch(e){
             console.log(e);
