@@ -102,7 +102,7 @@ router.post('/',async(req,res)=>{
     if(!newUser.firstName) errors.push('No first Name');
     if(!newUser.lastName) errors.push('No last Name');
     if(!newUser.email) errors.push('No email');
-    if(newUser.emaul && !emailRegex.test(newUser.email)) errors.push('Invalid email');
+    if(newUser.email && !emailRegex.test(newUser.email)) errors.push('Invalid email');
     if (!newUser.password) errors.push('No password provided');
     if(newUser.password && newUser.password.length < 8) errors.push('Password should contain at least 8 characters');
     if (!newUser.password_confirm)  errors.push('No password confirmation provided');
