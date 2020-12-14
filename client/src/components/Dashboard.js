@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useState ,useEffect} from 'react';
+import React, { useState ,useEffect, useContext} from 'react';
 import { Redirect } from 'react-router-dom';
 import './App.css';
+import { AuthContext } from './context/AuthContext';
 
 const Dashboard = ()=>{
+    const authContext = useContext(AuthContext);
     const [auth,setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
     const [loading, setLoading] = useState(true);
@@ -11,7 +13,14 @@ const Dashboard = ()=>{
     const [loggedOut,setLoggedOut] = useState(false);
     const handleLogout = async ()=>{
         const loggingout = await axios.get('/users/logout');
-        if(loggingout) setLoggedOut(true);
+        if(loggingout){
+            authContext.setAuthState({
+                logged:false,
+                user:undefined
+            });
+            //console.log(authContext.authState);
+            setLoggedOut(true);
+        }
     }
     useEffect( async ()=>{
         const theUser = await axios.get('/users/profile');

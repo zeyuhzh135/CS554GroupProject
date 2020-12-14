@@ -1,4 +1,4 @@
-import React, {useState, useContext, createContext} from 'react';
+import React, {useState, createContext} from 'react';
 
 const AuthContext = createContext();
 const {Provider} = AuthContext;
@@ -12,19 +12,19 @@ const AuthProvider = ({children})=>{
     setAuthState({
         logged,
         user
-    })
+        })
+    }
     return (
-    <Provider
-        value = {{
-            authState,
-            setAuthState:authInfo => setAuth(authInfo)
-        }}
-    >
-        {children}
-    </Provider>
+        <Provider
+            value = {{
+                authState,
+                setAuthState:authInfo => setAuth(authInfo)
+            }}
+        >
+            {children}
+        </Provider>
     
-)
-}
+    )
 }
 
 

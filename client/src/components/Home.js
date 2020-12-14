@@ -3,7 +3,7 @@ import axios from 'axios'
 import {Link, Redirect} from 'react-router-dom';
 import './App.css';
 
-const Home = (props) => {
+const Home = () => {
 	const [loading, setLoading] = useState(false);
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);

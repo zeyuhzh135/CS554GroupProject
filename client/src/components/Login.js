@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import {AuthContext} from './context/AuthContext';
 import './App.css';
 
-const Login = (props) => {
+const Login = () => {
     const useFormInput = initialValue=>{
         const [value,setValue] = useState(initialValue);
         const handleChange = e =>{
@@ -14,6 +15,7 @@ const Login = (props) => {
             onChange:handleChange
         }
     }
+    const authConext = useContext(AuthContext);
     const email = useFormInput('');
     const password = useFormInput('');
     const [error,setError] = useState(false);
@@ -24,14 +26,16 @@ const Login = (props) => {
             //input validation!
             let apiRes = await axios.post('/users/signin',{email:email.value,password:password.value});
             if(!apiRes.data.error){
-                props.history.push({
-                    pathname:'/',
-                    authUser:{
-                        userId:apiRes.data.data._id,
-                        firstNamme:apiRes.data.data.firstNamme,
-                        lastName:apiRes.data.data.lastName
-                    }
-                });
+                let loggedInuser = {
+                    firstName:apiRes.data.data.firstName,
+                    lastName:apiRes.data.data.lastName,
+                    userId:apiRes.data.data._id
+                }
+                authConext.setAuthState({
+                    logged:true,
+                    user:loggedInuser
+                })
+                setRedirectToHome(true);
             }
         }catch(e){
             console.log(e);

@@ -1,14 +1,24 @@
 import axios from 'axios';
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import {NavLink as Link} from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import './App.css';
+import { AuthContext } from './context/AuthContext';
 
-const Nav = (props) => {
+const Nav = () => {
+    const authContext = useContext(AuthContext);
     const [auth,setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
     useEffect( async ()=>{
-        const theUser = await axios.get('/users/profile');
+        let theUser
+        const getUser = async ()=>{
+            try{
+                theUser = await axios.get('/users/profile');
+            }catch(e){
+                console.log(e);
+            }
+        }
+        await getUser();
         if(theUser.data.logged) setAuth(true);
         if(theUser.data.logged && theUser.data.data){
             setAuthUser({
@@ -17,9 +27,10 @@ const Nav = (props) => {
                 lastName:theUser.data.data.lastName
             });
         }
-    },[props.location]);
+    },[authContext.authState]);
+    
     if(auth&&authUser){
-        console.log(props.location);
+        console.log(authContext.authState);
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>

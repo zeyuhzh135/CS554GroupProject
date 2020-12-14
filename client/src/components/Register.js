@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './App.css'; 
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 
 const Register = () => {
     const useFormInput = initialValue=>{
@@ -14,6 +15,7 @@ const Register = () => {
             onChange:handleChange
         }
     }
+    const authContext = useContext(AuthContext);
     const firstName = useFormInput('');
     const lastName = useFormInput('');
     const email = useFormInput('');
@@ -39,6 +41,15 @@ const Register = () => {
                 let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
                 console.log(apiResponse);
                 if(!apiResponse.data.error){
+                    let loggedInUser = {
+                        firstName: apiResponse.data.data.firstName,
+                        lastName:apiResponse.data.data.lastName,
+                        userId:apiResponse.data.data._id
+                    }
+                    authContext.setAuthState({
+                        logged:true,
+                        user:loggedInUser
+                    })
                     setRedirectToHome(true);
                 }
             }catch(e){

@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
-import {AuthContext} from './context/AuthContext';
+import {AuthContext, AuthProvider} from './context/AuthContext';
 import chatRoom from "./chatRoom/ChatRoom";
 import JoinClasses from "./JoinClasses";
 import Dashboard  from "./Dashboard";
@@ -13,15 +13,16 @@ import Nav from './Nav';
 import axios from 'axios';
 
 
-function App(props) {
+function App() {
     return (
         <Router>
-            <div className="App">
+            <AuthProvider>
                 <div className="App">
-                    <header className="App-header">
+                    <div className="App">
+                        <header className="App-header">
                         {/*<h1 className="App-title">Quiz App</h1>*/}
                         <div className="App-link">
-                            <Nav route={props.location}/>
+                            <Nav/>
                         </div>
                     </header>
                 </div>
@@ -34,7 +35,9 @@ function App(props) {
                     <Route path='/chatRoom' render={chatRoom}/>
                     <Route path='/dashboard' component={Dashboard}/>
                 </div>
-        </div> 
+            </div>   
+            </AuthProvider>
+ 
         </Router>
 
         // [<Switch>
