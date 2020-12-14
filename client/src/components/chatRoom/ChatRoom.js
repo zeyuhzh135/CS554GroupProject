@@ -1,13 +1,13 @@
 import ChatNav from "./ChatNav";
 
 
-function chatRoom() {
+const ChatRoom = ()=> {
     //console.log(props);
     return (
         <div>
-            <ChatNav/>
+
         </div>
     )
 }
 
-export default chatRoom;
+export default ChatRoom;

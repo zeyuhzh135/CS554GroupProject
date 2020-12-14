@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 
-function ChatNav() {
+const ChatNav = ()=> {
 
     const [classes, setClasses] = useState(undefined);
     const [loading, setLoading] = useState(true);
