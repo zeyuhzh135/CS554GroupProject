@@ -66,6 +66,7 @@ const ChatRoom = ({location}) => {
             info.msg = message;
             socket.emit("sendGroupMsg", info, () => {
                 setMessage('');
+                setMessages([...messages, info])
             })
         }
     }
@@ -75,7 +76,7 @@ const ChatRoom = ({location}) => {
                 <ScrollToBottom>
                     {messages.map((message, i) => {
                         return (
-                            <div>
+                            <div key={i}>
                                 <Message message={message.msg} name={message.sender} userName={userName}/>
                             </div>
                         )

@@ -75,7 +75,7 @@ const socketListener = async (io) => {
             }
         });
 
-        socket.on('sendGroupMsg', (info) => {
+        socket.on('sendGroupMsg', (info, callback) => {
             console.log(info)
             try {
                 groupMsgData.addGroupMeg(info.sender,info.roomId,info.msg);
@@ -83,6 +83,7 @@ const socketListener = async (io) => {
                 console.log(e)
             }
             socket.to(info.roomId).emit('receiveGroupMsg', info);
+            callback();
         });
     })
 }
