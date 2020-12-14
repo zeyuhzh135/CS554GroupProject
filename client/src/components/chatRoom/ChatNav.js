@@ -6,6 +6,7 @@ const ChatNav = ()=> {
 
     const [classes, setClasses] = useState(undefined);
     const [loading, setLoading] = useState(true);
+    const [userName, setUserName] = useState(undefined);
     useEffect(async ()=>{
         async function getUserInfo(){
             let apiRes = await axios.get('/users/profile');
@@ -18,6 +19,7 @@ const ChatNav = ()=> {
                     console.log(_class);
                     tempClasses.push(_class);
                 })
+                setUserName(user.lastName+" "+user.firstName);
                 setClasses(tempClasses);
                 setLoading(false);
             }
@@ -30,7 +32,7 @@ const ChatNav = ()=> {
             <div>
                 <ul>
                     {classes.map((_class)=>{
-                        return <li key={_class._id}><Link to={`/chat?roomId=${_class._id}&name=${_class.name}`}>{_class.name}</Link></li>
+                        return <li key={_class._id}><Link to={`/chat?roomId=${_class._id}&name=${_class.name}&userName=${userName}`}>{_class.name}</Link></li>
                     })}
                 </ul>
             </div>
