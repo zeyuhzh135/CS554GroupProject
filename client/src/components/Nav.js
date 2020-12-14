@@ -9,7 +9,7 @@ const Nav = () => {
     const authContext = useContext(AuthContext);
     const [auth,setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
-    useEffect( async ()=>{
+    useEffect(async()=>{
         let theUser
         const getUser = async ()=>{
             try{
