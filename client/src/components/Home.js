@@ -3,12 +3,12 @@ import axios from 'axios'
 import {Link, Redirect} from 'react-router-dom';
 import './App.css';
 
-const Home = () => {
+const Home = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);
 	let classes;
-	useEffect(()=>{
+	useEffect(async ()=>{
 		setLoading(true);
 		async function getclasses(){
 			try{
@@ -32,7 +32,7 @@ const Home = () => {
 	}
 	classes = classList && classList.map((theClass)=>{
 		return buildClass(theClass);
-	})
+	});
 	return (
 		<div>
 			<ul>

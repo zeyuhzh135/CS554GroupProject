@@ -6,7 +6,7 @@ function ChatNav() {
 
     const [classes, setClasses] = useState(undefined);
     const [loading, setLoading] = useState(true);
-    useEffect(()=>{
+    useEffect(async ()=>{
         async function getUserInfo(){
             let apiRes = await axios.get('/users/profile');
             if(!apiRes.data.error){

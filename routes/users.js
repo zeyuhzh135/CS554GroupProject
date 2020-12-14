@@ -197,4 +197,19 @@ router.get('/profile/:userId', async(req,res)=>{
         data:user
     })
 })
+
+router.get('/logout',async(req,res)=>{
+    if(!req.session.user){
+        res.status(200).json({
+            error:true,
+            errors:['You are not loggedin'],
+            logged:false,
+            data:null
+        })
+    }
+    req.session.destroy();
+    res.status(200).json({
+        loggedout:true
+    })
+})
 module.exports = router;

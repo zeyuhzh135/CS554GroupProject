@@ -22,28 +22,52 @@ const Register = () => {
     const city = useFormInput('');
     const state= useFormInput('');
     const [error,setError] = useState(false);
+    const [pageErrors,setPageErrors] = useState(undefined);
     const [redirectToHome,setRedirectToHome] = useState(false);
 
     const handleRegister= async ()=>{
         //do the input validation?
         //let apiResponse = await axios.get('http://localhost:4000/classes/5fcbd558cca0331d0a3a3685');
-        try{
-            let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
-            if(!apiResponse.data.error){
-                setRedirectToHome(true);
+        let errs =[];
+        if(!firstName.value) errs.push('Need firstName');
+        if(errs.length>0){
+            setError(true);
+            setPageErrors(errs);
+            console.log(errs);
+        }else{
+            try{
+                let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
+                console.log(apiResponse);
+                if(!apiResponse.data.error){
+                    setRedirectToHome(true);
+                }
+            }catch(e){
+                console.log(e);
             }
-        }catch(e){
-            console.log(e);
         }
-
-
-
     }
 
+    const ErrorList = ()=>{
+        let errorl;
+        errorl = pageErrors&&pageErrors.map((e)=>{
+            <li>
+                {e}
+            </li>
+        });
+        return(
+            <div>
+                <ul>
+                    {errorl}
+                </ul>
+            </div>
+        )
+    }
     if(redirectToHome){
         return (
             <Redirect to='/'/>
         )
+    }else if(error){
+
     }else{
         return (
             <div>
