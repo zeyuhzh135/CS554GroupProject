@@ -18,7 +18,7 @@ const Message = ({message, name, userName})=>{
             <div className="messageContainer justifyStart">
                 <p className="sentText">{name}</p>
                 <div className="messageBox">
-                    <p className="messageText">{message}</p>
+                    <p className="messageText colorDark">{message}</p>
                 </div>
             </div>
         )

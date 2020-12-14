@@ -69,7 +69,13 @@ const socketListener = async (io) => {
                     "msg":groupMsg
                 }
                 socket.emit("receiveGroupChatHistory", historyMsg)
+
+
                 console.log(`${info.sender} joined ${info.roomId}`);
+                socket.broadcast.to(info.roomId).emit('receiveGroupMsg',{
+                    sender:'admin',
+                    msg:`${info.sender} has joined`
+                })
             }catch (e){
                 console.log(e);
             }

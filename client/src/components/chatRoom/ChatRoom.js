@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import queryString from 'query-string';
-import ScrollToBottom from 'react-scroll-to-bottom';
 import io from 'socket.io-client';
 import './ChatRoom.css';
 import Message from "./Message";
@@ -13,6 +12,7 @@ const ChatRoom = ({location}) => {
     const [userName, setUserName] = useState(undefined);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState(undefined);
+    const messageEndRef = useRef(undefined)
     const endPoint = 'http://localhost:4000';
     let info = {
         sender: userName,
@@ -51,11 +51,17 @@ const ChatRoom = ({location}) => {
             console.log("enter receive");
             setMessages([...messages, message]);
         })
+        scrollToBottom()
     }, [messages])
 
     const inputHandler = (e) => {
         e.preventDefault();
         setMessage(e.target.value);
+    }
+
+    const scrollToBottom = () => {
+        if(messageEndRef !== undefined)
+            messageEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
     const sendMessage = (e) => {
@@ -73,7 +79,7 @@ const ChatRoom = ({location}) => {
     return (
         <div className="outerContainer">
             <div className="container">
-                <ScrollToBottom>
+                <div className="messages">
                     {messages.map((message, i) => {
                         return (
                             <div key={i}>
@@ -81,8 +87,12 @@ const ChatRoom = ({location}) => {
                             </div>
                         )
                     })}
-                </ScrollToBottom>
-                <input
+                    <div ref={messageEndRef}/>
+                </div>
+                <textarea
+                    className="input"
+                    cols="40"
+                    rows="5"
                     value={message}
                     onChange={inputHandler}
                     onKeyPress={e => e.key === "Enter" ? sendMessage(e) : null}

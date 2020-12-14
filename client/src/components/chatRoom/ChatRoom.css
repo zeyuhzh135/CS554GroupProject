@@ -1,3 +1,17 @@
+.messages {
+    padding: 5% 0;
+    overflow: auto;
+    flex: auto;
+}
+
+.input {
+    border-radius: 2px;
+    padding: 5%;
+    width: 80%;
+    font-size: 1.2em;
+    text-align: left;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
     .outerContainer {
         height: 100%;
