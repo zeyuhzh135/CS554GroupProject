@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import './App.css';
 
-const Login = () => {
+const Login = (props) => {
     const useFormInput = initialValue=>{
         const [value,setValue] = useState(initialValue);
         const handleChange = e =>{
@@ -24,8 +24,14 @@ const Login = () => {
             //input validation!
             let apiRes = await axios.post('/users/signin',{email:email.value,password:password.value});
             if(!apiRes.data.error){
-                setRedirectToHome(true);
-                alert("login success")
+                props.history.push({
+                    pathname:'/',
+                    authUser:{
+                        userId:apiRes.data.data._id,
+                        firstNamme:apiRes.data.data.firstNamme,
+                        lastName:apiRes.data.data.lastName
+                    }
+                });
             }
         }catch(e){
             console.log(e);
@@ -33,7 +39,7 @@ const Login = () => {
 
     }
     if(redirectToHome){
-        return <Redirect to='/'/>
+        return <Redirect to='/' />
     }else{
         return (
             <div>

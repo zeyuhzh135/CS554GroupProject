@@ -18,7 +18,7 @@ const JoinClasses = () => {
     const [loading, setLoading] = useState(true)
     const classId = useFormInput('');
     let classes;
-    useEffect(()=>{
+    useEffect(async ()=>{
         async function getclasses(){
             try{
                 let apires = await axios.get('/classes');
