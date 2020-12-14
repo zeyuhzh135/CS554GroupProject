@@ -30,7 +30,7 @@ function ChatNav() {
             <div>
                 <ul>
                     {classes.map((_class)=>{
-                        return <li>{_class.name}</li>
+                        return <li key={_class._id}><Link to={`/chat?room=${_class._id}&name=${_class.name}`}>{_class.name}</Link></li>
                     })}
                 </ul>
             </div>
