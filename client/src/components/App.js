@@ -5,12 +5,13 @@ import {withRouter} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
-import {AuthContext, AuthProvider} from './context/AuthContext';
+import {AuthProvider} from './context/AuthContext';
 import chatRoom from "./chatRoom/ChatRoom";
 import JoinClasses from "./JoinClasses";
 import Dashboard  from "./Dashboard";
 import Nav from './Nav';
-import axios from 'axios';
+import ChatNav from "./chatRoom/ChatNav";
+import ChatRoom from "./chatRoom/ChatRoom";
 
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
                     <Route exact path='/' render={props=><Home route='/'/>} />
                     <Route exact path='/login' component={Login}/>
                     <Route path='/register' component={Register}/>
-                    <Route path='/chatRoom' render={chatRoom}/>
+                    <Route path='/chatRoom' component={ChatNav}/>
+                    <Route path='/chat' component={ChatRoom}/>
                     <Route path='/dashboard' component={Dashboard}/>
                 </div>
             </div>   

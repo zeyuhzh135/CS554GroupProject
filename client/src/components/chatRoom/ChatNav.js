@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 
-function ChatNav() {
+const ChatNav = ()=> {
 
     const [classes, setClasses] = useState(undefined);
     const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ function ChatNav() {
             <div>
                 <ul>
                     {classes.map((_class)=>{
-                        return <li>{_class.name}</li>
+                        return <li key={_class._id}><Link to={`/chat?room=${_class._id}&name=${_class.name}`}>{_class.name}</Link></li>
                     })}
                 </ul>
             </div>
