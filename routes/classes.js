@@ -59,11 +59,13 @@ router.post('/',async(req,res)=>{
     let errors = [];
     if(!newClassData.name) errors.push('No name of class');
     if(!newClassData.category) errors.push('No category');
-    if(!newClassData.description) errors.push('No description')
-    //const owner = req.session.user.userId;
-    let owner = newClassData.owner
+    if(!newClassData.description) errors.push('No description');
+    if(!newClassData.questions) newClassData.questions = [];
+    if(newClassData.questions && !Array.isArray(newClassData.questions)) errors.push('Invalid questions');
+    const owner = req.session.user.userId;
+    //let owner = newClassData.owner
     if(errors.length>0){
-        res.status(500).json({
+        res.status(200).json({
             error:true,
             errors:errors,
             logged: true, //only login user can post a new class
@@ -71,7 +73,7 @@ router.post('/',async(req,res)=>{
         return;
     }
     try{
-        const newClass = await classData.addClass(xss(newClassData.name),xss(newClassData.category),xss(owner),xss(newClassData.description));
+        const newClass = await classData.addClass(xss(newClassData.name),xss(newClassData.category),xss(owner),xss(newClassData.description),newClassData.questions);
         res.status(200).json({
             error:false,
             errors:errors,
@@ -103,10 +105,10 @@ router.post('/edit',async(req,res)=>{
     for(q of updateClassData.questions){
         qs.push(q);
     }
-    //const owner = req.session.user.userId;
-    let owner = updateClassData.owner;
+    const owner = req.session.user.userId;
+    //let owner = updateClassData.owner;
     if(errors.length>0){
-        res.status(500).json({
+        res.status(200).json({
             error:true,
             errors:errors,
             logged: true, //only login user can post a new class
