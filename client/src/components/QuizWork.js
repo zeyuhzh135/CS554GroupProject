@@ -7,7 +7,6 @@ import './App.css';
 const QuizWork = (props)=>{
     const [questionList, setQuestionList] = useState(undefined);
     const [quiz,setQuize] = useState(undefined);
-    const [ID,setID] = useState(undefined);
     const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
     let questions
@@ -24,7 +23,6 @@ const QuizWork = (props)=>{
                     description:apires.data.data.description,
                     teacher:teacher
                 })
-                setID(apires_user.data.data._id);
                 setQuestionList(apires.data.data.questions);
             }catch(e){
                 console.log(e);
@@ -41,7 +39,8 @@ const QuizWork = (props)=>{
       
     const onSubmitValue= async (e)=>{
         e.preventDefault();
-        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id, user: ID});
+        let theUser = await axios.get('/users/profile');
+        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id, user: theUser.data.data._id});
         setFinished(true);
     }
 
