@@ -33,15 +33,15 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                    Home
+                <h1 class = "title">Quiz App</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes
                 </Link>
                 <Link className='navlink' to='/chatRoom'>
-                    ChatRoom
+                    Chat Room
                 </Link>
-                <Link className='loglink' to='/dashboard'>
+                <Link className='navlink' to='/dashboard'>
                     {authUser.firstName} {authUser.lastName}
                 </Link>
             </div>
@@ -50,19 +50,19 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                    Home
+                <h1 class = "title">Quiz App</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes
                 </Link>
                 <Link className='navlink' to='/chatRoom'>
-                    ChatRoom
+                    Chat Room
                 </Link>
-            <Link className='loginlink' to='/login'>
-                SignIn
+            <Link className='navlink' to='/login'>
+                Sign In
             </Link>
-            <Link className='loglink' to='/register'>
-                SignUp
+            <Link className='navlink' to='/register'>
+                Sign Up
             </Link> 
             </div>
             )
