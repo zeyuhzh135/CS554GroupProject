@@ -139,8 +139,8 @@ router.post('/scores',async(req,res)=>{
     let errors = [];
     if(!data.classid) errors.push("No classid");
     if(!data.answers) errors.push('No student answer');
-    //const user = req.session.user.userId;
-    let user = data.user;
+    const user = req.session.user.userId;
+    //let user = data.user;
     let studentAns = data.answers;
     let theClassid = data.classid;
     let scoreboard = [];

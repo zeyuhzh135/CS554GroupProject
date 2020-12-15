@@ -87,7 +87,7 @@ module.exports = {
     async addStudentToClass(classId,studentId, score){
         if(!classId) throw 'No classId';
         if(!studentId) throw 'No studentId';
-        if(!score || typeof(score) != 'number') throw 'invalid score';
+        if(typeof(score) != 'number') throw 'invalid score';
         const classesCollection = await classes();
         let newStudent = {
             id: studentId,

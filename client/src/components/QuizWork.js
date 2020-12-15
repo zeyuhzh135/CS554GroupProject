@@ -39,8 +39,8 @@ const QuizWork = (props)=>{
       
     const onSubmitValue= async (e)=>{
         e.preventDefault();
-        let theUser = await axios.get('/users/profile');
-        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id, user: theUser.data.data._id});
+        //let theUser = await axios.get('/users/profile');
+        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id});
         setFinished(true);
     }
 

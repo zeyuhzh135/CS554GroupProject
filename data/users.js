@@ -128,7 +128,7 @@ module.exports = {
     async addScoreToUser(userId, classId, score){
         if(!userId) throw 'You must provide a user id';
         if(!classId) throw 'You must provide a class id';
-        if(!score || typeof score != 'number')  throw 'You must provide a valid score';
+        if(typeof score != 'number')  throw 'You must provide a valid score';
         if(typeof userId ==='string'){
             userId = ObjectId(userId);
         };
