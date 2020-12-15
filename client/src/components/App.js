@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import {NavLink, BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
@@ -13,6 +12,7 @@ import Nav from './Nav';
 import ChatNav from "./chatRoom/ChatNav";
 import ChatRoom from "./chatRoom/ChatRoom";
 import QuizWork from "./QuizWork";
+import NewQuiz from './NewQuiz';
 
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
                     <Route path='/chat' component={ChatRoom}/>
                     <Route path='/dashboard' component={Dashboard}/>
                     <Route exact path='/quiz/:id' component={QuizWork}/>
+                    <Route exact path='/newquiz' component={NewQuiz}/>
                 </div>
             </div>   
             </AuthProvider>

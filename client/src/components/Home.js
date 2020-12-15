@@ -4,12 +4,13 @@ import {Link, Redirect} from 'react-router-dom';
 import './App.css';
 import { AuthContext } from './context/AuthContext';
 
-const Home = () => {
+const Home = (props) => {
 	const authContext = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);
 	let classes;
+	let newQuiz;
 	useEffect( ()=>{
 		setLoading(true);
 		async function getclasses(){
@@ -40,6 +41,11 @@ const Home = () => {
 			return null;
 		}
 	}
+	const buildNewQuizLink = ()=>{
+		return(
+			<Link to='/newquiz'>Create a New Quiz</Link>
+		)
+	}
 	const buildClass = (theClass)=>{
 		const actionButton = buildButton(theClass);
 		return(
@@ -68,8 +74,13 @@ const Home = () => {
 	classes = classList && classList.map((theClass)=>{
 		return buildClass(theClass);
 	});
+	if(authContext.authState&&authContext.authState.logged){
+		newQuiz = buildNewQuizLink()
+	}
 	return (
 		<div>
+			{newQuiz}
+			<br/>
 			<ul>
 				{classes}
 			</ul>
