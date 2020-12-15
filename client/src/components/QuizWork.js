@@ -33,6 +33,7 @@ const QuizWork = (props)=>{
     }
 
     if(questionList){
+        let i = 0;
         questions = questionList.map((question)=>{
             let i=0;
             return(
@@ -41,30 +42,17 @@ const QuizWork = (props)=>{
                     Q{++i}: {question.question}
                 </lable>
                 <br/>
-                <form>
-                    <div className = 'radio'>
-                        <label>
-                            <input type='radio' name={question.question} value = {question.A} onChange={onChangeValue}/>
-                            {question.A}
-                        </label>
-                        <br/>
-                        <label>
-                            <input type='radio' name={question.question} value = {question.B} onChange={onChangeValue}/>
-                            {question.B}
-                        </label>
-                        <br/>
-                        <label>
-                            <input type='radio' name={question.question} value = {question.C} onChange={onChangeValue}/>
-                            {question.C}
-                        </label>
-                        <br/>
-                        <label>
-                            <input type='radio' name={question.question }value = {question.D} onChange={onChangeValue}/>
-                            {question.D}
-                        </label>
-                        
-                    </div>
-                </form>
+                    <input type='radio' id = "A" name = {question.question} value = {question.A}/>
+                    <lable>{question.A}</lable>
+                <br/>
+                    <input type='radio' id = "B" name = {question.question} value = {question.B}/>
+                    <lable>{question.B}</lable>
+                <br/>
+                    <input type='radio' id = "C" name = {question.question} value = {question.C}/>
+                    <lable>{question.C}</lable>
+                <br/>
+                    <input type='radio' id = "D" name = {question.question} value = {question.D}/>
+                    <lable>{question.D}</lable>
                 <br/>
                 </div>
             )
@@ -76,6 +64,7 @@ const QuizWork = (props)=>{
                 <p>{quiz.description}</p>
                 <p>{quiz.teacher}</p>
                 {questions}
+                <input type = 'button' className = 'submit-button' value = 'submit'/>
             </div>
 
     )
