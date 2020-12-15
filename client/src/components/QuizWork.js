@@ -7,6 +7,7 @@ import './App.css';
 const QuizWork = (props)=>{
     const [questionList, setQuestionList] = useState(undefined);
     const [quiz,setQuize] = useState(undefined);
+    const [answer, setAnswer] = useState([]);
     let questions
     useEffect(()=>{
         async function getTheClass(){
@@ -28,30 +29,36 @@ const QuizWork = (props)=>{
         getTheClass();
     },[props.match.params.id]);
 
-    const onChangeValue=(event)=>{
-        console.log(event.target.value);
+    const updateFieldChanged = (name, index) => (event) => {
+        let newArr = answer;
+        newArr[index] = name;
+        setAnswer(newArr);
+      };
+      
+    const onSubmitValue=(e)=>{
+        alert(answer);
+        console.log(answer);
     }
 
     if(questionList){
         let i = 0;
         questions = questionList.map((question)=>{
-            let i=0;
             return(
                 <div className = 'question-card' key={question.question}>
                 <lable>
                     Q{++i}: {question.question}
                 </lable>
                 <br/>
-                    <input type='radio' id = "A" name = {question.question} value = {question.A}/>
+                    <input type='radio' id = "A" value = 'A' onClick={updateFieldChanged('A', i-1)}/>
                     <lable>{question.A}</lable>
                 <br/>
-                    <input type='radio' id = "B" name = {question.question} value = {question.B}/>
+                    <input type='radio' id = "B" value = 'B' onClick={updateFieldChanged('B', i-1)}/>
                     <lable>{question.B}</lable>
                 <br/>
-                    <input type='radio' id = "C" name = {question.question} value = {question.C}/>
+                    <input type='radio' id = "C" value = 'C' onClick={updateFieldChanged('C', i-1)}/>
                     <lable>{question.C}</lable>
                 <br/>
-                    <input type='radio' id = "D" name = {question.question} value = {question.D}/>
+                    <input type='radio' id = "D" value = 'D' onClick={updateFieldChanged('D', i-1)}/>
                     <lable>{question.D}</lable>
                 <br/>
                 </div>
@@ -63,8 +70,12 @@ const QuizWork = (props)=>{
                 <p>{quiz.category}</p>
                 <p>{quiz.description}</p>
                 <p>{quiz.teacher}</p>
+                <form onSubmit={onSubmitValue}>
                 {questions}
-                <input type = 'button' className = 'submit-button' value = 'submit'/>
+                <button className="submit-button" type="submit">
+                    Submit
+                </button>
+                </form>
             </div>
 
     )
