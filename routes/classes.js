@@ -134,18 +134,18 @@ router.post('/edit',async(req,res)=>{
 
 });
 
-//not test
 router.post('/scores',async(req,res)=>{
     let data = req.body;
     let errors = [];
     if(!data.classid) errors.push("No classid");
-    if(!data.studentAns) errors.push('No student answer');
+    if(!data.answers) errors.push('No student answer');
     //const user = req.session.user.userId;
-    let user = updateClassData.owner;
+    let user = data.user;
     let studentAns = data.answers;
     let theClassid = data.classid;
     let scoreboard = [];
-    let rightcount;
+    let score = 0;
+    let rightcount=0;
     try{
         const theClassInfo = await classData.getClass(xss(theClassid));
         if(studentAns.length != theClassInfo.questions.length){
@@ -168,17 +168,18 @@ router.post('/scores',async(req,res)=>{
             }
         }
         score = 100*rightcount/studentAns.length
-        await addStudentToClass(theClassInfo._id,user,score);
+        await classData.addStudentToClass(theClassInfo._id,user,score);
     }catch(e){
         res.status(500).json({
             error:true,
             errors:e,
             logged:true,
             data: null
-        })
+        });
+        return;
     };
     if(errors.length>0){
-        res.status(500).json({
+        res.status(200).json({
             error:true,
             errors:errors,
             logged:true,

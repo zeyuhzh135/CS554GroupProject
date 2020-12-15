@@ -23,9 +23,9 @@ app.use(
     })
 );
 
-//seems this does not work yet
+
 app.use((req, res, next) => {
-    console.log(req.session.user);
+    //console.log(req.session.user);
     next();
 })
 
