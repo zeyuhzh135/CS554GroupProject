@@ -37,7 +37,7 @@ const Nav = () => {
                     Home
                 </Link>
                 <Link className='navlink' to='/classes'>
-                    Quizes
+                    Quizzes
                 </Link>
                 <Link className='navlink' to='/chatRoom'>
                     ChatRoom
@@ -54,7 +54,7 @@ const Nav = () => {
                     Home
                 </Link>
                 <Link className='navlink' to='/classes'>
-                    Quizes
+                    Quizzes
                 </Link>
                 <Link className='navlink' to='/chatRoom'>
                     ChatRoom

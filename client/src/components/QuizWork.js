@@ -29,28 +29,25 @@ const QuizWork = (props)=>{
     },[])
 
     if(questionList){
+        let i = 0;
         questions = questionList.map((question)=>{
             return(
                 <div className = 'question-card' key={question.question}>
                 <lable>
-                    Q1: {question.question}
+                    Q{++i}: {question.question}
                 </lable>
                 <br/>
-                <lable>
-                    <input type='radio' name = {question.A} value = {question.A}/>
-                </lable>
+                    <input type='radio' id = "A" name = {question.question} value = {question.A}/>
+                    <lable>{question.A}</lable>
                 <br/>
-                <lable>
-                    <input type='radio' name = {question.B} value = {question.B}/>
-                </lable>
+                    <input type='radio' id = "B" name = {question.question} value = {question.B}/>
+                    <lable>{question.B}</lable>
                 <br/>
-                <lable>
-                    <input type='radio' name = {question.C} value = {question.C}/>
-                </lable>
+                    <input type='radio' id = "C" name = {question.question} value = {question.C}/>
+                    <lable>{question.C}</lable>
                 <br/>
-                <lable>
-                    <input type='radio' name = {question.D} value = {question.D}/>
-                </lable>
+                    <input type='radio' id = "D" name = {question.question} value = {question.D}/>
+                    <lable>{question.D}</lable>
                 <br/>
                 </div>
             )
@@ -62,6 +59,7 @@ const QuizWork = (props)=>{
                 <p>{quiz.description}</p>
                 <p>{quiz.teacher}</p>
                 {questions}
+                <input type = 'button' className = 'submit-button' value = 'submit'/>
             </div>
 
     )
