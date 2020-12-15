@@ -16,6 +16,7 @@ const QuizWork = (props)=>{
                 let apires_user = await axios.get(`/users/profile/${apires.data.data.owner}`);
                 let teacher = apires_user.data.data.firstName.concat(" ").concat(apires_user.data.data.lastName);
                 setQuize({
+                    id: apires.data.data._id,
                     name:apires.data.data.name,
                     category:apires.data.data.category,
                     description:apires.data.data.description,
@@ -35,9 +36,9 @@ const QuizWork = (props)=>{
         setAnswer(newArr);
       };
       
-    const onSubmitValue=(e)=>{
-        alert(answer);
-        console.log(answer);
+    const onSubmitValue= async (e)=>{
+        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id});
+        alert(apiResponse);
     }
 
     if(questionList){
