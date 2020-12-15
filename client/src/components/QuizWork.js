@@ -26,31 +26,45 @@ const QuizWork = (props)=>{
             }
         }
         getTheClass();
-    },[])
+    },[props.match.params.id]);
+
+    const onChangeValue=(event)=>{
+        console.log(event.target.value);
+    }
 
     if(questionList){
         questions = questionList.map((question)=>{
+            let i=0;
             return(
                 <div className = 'question-card' key={question.question}>
                 <lable>
-                    Q1: {question.question}
+                    Q{++i}: {question.question}
                 </lable>
                 <br/>
-                <lable>
-                    <input type='radio' name = {question.A} value = {question.A}/>
-                </lable>
-                <br/>
-                <lable>
-                    <input type='radio' name = {question.B} value = {question.B}/>
-                </lable>
-                <br/>
-                <lable>
-                    <input type='radio' name = {question.C} value = {question.C}/>
-                </lable>
-                <br/>
-                <lable>
-                    <input type='radio' name = {question.D} value = {question.D}/>
-                </lable>
+                <form>
+                    <div className = 'radio'>
+                        <label>
+                            <input type='radio' name={question.question} value = {question.A} onChange={onChangeValue}/>
+                            {question.A}
+                        </label>
+                        <br/>
+                        <label>
+                            <input type='radio' name={question.question} value = {question.B} onChange={onChangeValue}/>
+                            {question.B}
+                        </label>
+                        <br/>
+                        <label>
+                            <input type='radio' name={question.question} value = {question.C} onChange={onChangeValue}/>
+                            {question.C}
+                        </label>
+                        <br/>
+                        <label>
+                            <input type='radio' name={question.question }value = {question.D} onChange={onChangeValue}/>
+                            {question.D}
+                        </label>
+                        
+                    </div>
+                </form>
                 <br/>
                 </div>
             )

@@ -10,7 +10,7 @@ const Home = () => {
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);
 	let classes;
-	useEffect(async ()=>{
+	useEffect( ()=>{
 		setLoading(true);
 		async function getclasses(){
 			try{
