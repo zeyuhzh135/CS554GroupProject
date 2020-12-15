@@ -17,5 +17,6 @@ module.exports = {
     users: getCollectionFn("users"),
     classes: getCollectionFn("classes"),
     privateMsg: getCollectionFn("privateMsg"),
-    groupMsg: getCollectionFn("groupMsg")
+    groupMsg: getCollectionFn("groupMsg"),
+    image: getCollectionFn("image")
 };
