@@ -27,23 +27,21 @@ const ChatNav = ()=> {
         getUserInfo();
     },[])
 
-    if(!loading){
+    useEffect(()=>{
+
+    },[loading])
+
+
         return (
             <div>
                 <ul>
-                    {classes.map((_class)=>{
+                    {classes && classes.map((_class)=>{
                         return <li key={_class._id}><Link to={`/chat?roomId=${_class._id}&name=${_class.name}&userName=${userName}`}>{_class.name}</Link></li>
                     })}
                 </ul>
             </div>
         );
-    }else{
-        return (
-            <div>
-                <p>loading</p>
-            </div>
-        )
-    }
+
 }
 
 export default ChatNav;
