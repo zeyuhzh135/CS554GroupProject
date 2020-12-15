@@ -59,7 +59,7 @@ const Login = () => {
     }
     const buildError = (e)=>{
         return(
-            <li>{e}</li>
+            <li key={e}>{e}</li>
         )
     }
     errorArea = error&&errors&&errors.map((e)=>{

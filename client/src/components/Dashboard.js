@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { GridFSBucketReadStream } from 'mongodb';
 import React, { useState ,useEffect, useContext} from 'react';
 import { Redirect } from 'react-router-dom';
 import './App.css';
 import { AuthContext } from './context/AuthContext';
+import Score from './Score';
+
 
 const Dashboard = ()=>{
     const authContext = useContext(AuthContext);
@@ -24,6 +25,11 @@ const Dashboard = ()=>{
             //console.log(authContext.authState);
             setLoggedOut(true);
         }
+    }
+
+    const handleEmail = async(e)=>{
+        e.preventDefault();
+        console.log(authUser.showScores);
     }
     useEffect( async ()=>{
         const theUser = await axios.get('/users/profile');
@@ -68,9 +74,7 @@ const Dashboard = ()=>{
 
     const buildscores=(showScores)=>showScores.map((showscore)=>{
         return(
-            <div>
-             <p>{showscore.className}: {showscore.score}</p>
-            </div>
+            <Score showscore={showscore}/>
         )
     })
 
@@ -97,6 +101,9 @@ const Dashboard = ()=>{
                 <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
                 <p>My scores:</p>
                 {scores}
+                <form onSubmit={handleEmail}>
+                    <input type='submit' value='Send my scores to email'/>
+                </form>
                 <p>I am teaching:</p>
                 {Imteaching}
                 <input type='button' className='logout-button' value='Log out' onClick={handleLogout}/>
