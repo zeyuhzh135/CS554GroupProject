@@ -7,6 +7,8 @@ import './App.css';
 const QuizWork = (props)=>{
     const [questionList, setQuestionList] = useState(undefined);
     const [quiz,setQuize] = useState(undefined);
+    const [ID,setID] = useState(undefined);
+    const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
     let questions
     useEffect(()=>{
@@ -22,6 +24,7 @@ const QuizWork = (props)=>{
                     description:apires.data.data.description,
                     teacher:teacher
                 })
+                setID(apires_user.data.data._id);
                 setQuestionList(apires.data.data.questions);
             }catch(e){
                 console.log(e);
@@ -37,12 +40,16 @@ const QuizWork = (props)=>{
       };
       
     const onSubmitValue= async (e)=>{
-        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id});
-        alert(apiResponse);
+        e.preventDefault();
+        let apiResponse = await axios.post('/classes/scores',{answers: answer, classid: quiz.id, user: ID});
+        setFinished(true);
     }
 
     if(questionList){
         let i = 0;
+        if(finished) {
+            return(<Redirect to="/dashboard" />);
+        }
         questions = questionList.map((question)=>{
             return(
                 <div className = 'question-card' key={question.question}>
