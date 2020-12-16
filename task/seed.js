@@ -11,7 +11,7 @@ async function main(){
     
     let teacher_pwd = passwordHash.generate('teacherpassword'),
     student_pwd = passwordHash.generate('studentpassword');
-    let teacher0,teacher1,student0,student1,student2,student3,quize0,quiz;
+    let teacher0,teacher1,student0,student1,student2,student3,quiz0,quiz1;
 
     try{
         teacher0 = await users.addUser("Jane","Baker",'janeb@example.com',teacher_pwd,true,'Santa Cruz','CT');
@@ -133,7 +133,12 @@ async function main(){
         console.log(e);
     }
 
-    
+    try{
+        await users.addClassToUser(student0._id,quiz0._id);
+        await users.addClassToUser(student1._id,quiz0._id);
+    }catch(e){
+        console.log(e);
+    }
     // try{
     //     user1 = await users.addUser('U1F','U1L','user1@123.com',user1_pwd,'city1','state1');
     // }catch(e){

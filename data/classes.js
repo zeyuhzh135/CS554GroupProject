@@ -64,12 +64,15 @@ module.exports = {
         if(insertInfo.insertedCount === 0) throw 'Can not add class';
         const classId = insertInfo.insertedId;
         let addClassToUser;
+        let addTeaching;
         try{
+            addTeaching = await users.teachingAClass(classOwner,classId);
             addClassToUser = await users.addClassToUser(classOwner,classId);
         }catch(e){
             throw(e);
         }
         if(!addClassToUser) throw 'Can not add class to user';
+        if(!addTeaching) throw 'Can not teaching this class';
         return await this.getClass(classId);
     },
 

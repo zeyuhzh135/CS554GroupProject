@@ -19,7 +19,10 @@ router.post("/joinClass", async (req,res)=>{
         let userId = req.session.user.userId;
         let classId = req.body.classId;
         try {
-            let result = await userData.addClassToUser(userId,classId)
+            let user = await userD.getUser(userId);
+            if(!user.classes.includes(classId)){
+                let result = await userData.addClassToUser(userId,classId)
+            }
         }catch (e){
             res.status(400).json({
                 error:true,
