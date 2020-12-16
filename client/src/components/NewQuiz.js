@@ -11,6 +11,7 @@ const NewQuiz = () => {
     const [description, setDescription] = useState('');
     const[count, setCount] = useState(0);
     const [answer, setAnswer] = useState([]);
+    const [finished, setFinished] = useState(false);
 
     const updateFieldChanged = async (input, value, index) => {
         let newArr = answer;
@@ -67,7 +68,11 @@ const NewQuiz = () => {
     const onSubmitValue= async (e)=>{
         e.preventDefault();
         let theUser = await axios.get('/users/profile');
-        await axios.post('/classes/print',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
+        await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
+        setFinished(true);
+    }
+    if(finished) {
+        return(<Redirect to="/dashboard" />);
     }
     return(
         <div className="new-quiz">
