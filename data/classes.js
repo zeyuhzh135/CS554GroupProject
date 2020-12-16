@@ -11,6 +11,7 @@ const { ObjectId } = require('mongodb');
 //     questions:[
 //         {
 //             question:string,
+//             hasImage:Boolean,
 //             A: string,
 //             B: striing,
 //             C: string,
@@ -36,13 +37,27 @@ module.exports = {
         if(!classDescription) throw 'No class description';
         if(!questions) questions = [];
         const classesCollection = await classes();
+        let insertquestions  = [];
+        for(q of questions){
+            let newQ = {
+                _id:ObjectId(),
+                question:q.question,
+                hasImage: q.hasImage,
+                A:q.A,
+                B:q.B,
+                C:q.C,
+                D:q.D,
+                correctAns:q.correctAns
+            }
+            insertquestions.push(newQ);
+        }
         classOwner = classOwner.toString();
         let newClass = {
             name:className,
             category:classCategory,
             owner: classOwner,
             description:classDescription,
-            questions:questions,
+            questions:insertquestions,
             students:students
         }
         const insertInfo = await classesCollection.insertOne(newClass);

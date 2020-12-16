@@ -107,6 +107,7 @@ router.post('/',async(req,res)=>{
     if(newUser.password && newUser.password.length < 8) errors.push('Password should contain at least 8 characters');
     if (!newUser.password_confirm)  errors.push('No password confirmation provided');
     if(newUser.password_confirm !== newUser.password)   errors.push('Passwords don\'t match');
+    if(!newUser.isteacher) errors.push('Declare you a teacher or not');
     if (!newUser.city)  errors.push('No city provided');
     if (!newUser.state) errors.push('No state provided');
     newUser.email = newUser.email.toLowerCase();
@@ -128,7 +129,7 @@ router.post('/',async(req,res)=>{
     try {
         const hashedPassword = passwordHash.generate(newUser.password);
         await userData.addUser(xss(newUser.firstName), xss(newUser.lastName), xss(newUser.email.toLowerCase()),
-            hashedPassword, xss(newUser.city), xss(newUser.state));
+            hashedPassword, newUser.isteacher,xss(newUser.city), xss(newUser.state));
         let newRegister = await userData.getUserByEmail(newUser.email.toLowerCase());
         req.session.user = {firstName:newRegister.firstName,lastName:newRegister.lastName,userId:newRegister._id}
         res.status(200).json({
