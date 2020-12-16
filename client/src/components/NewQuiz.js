@@ -5,7 +5,7 @@ import {AuthContext} from './context/AuthContext';
 import './App.css';
 
 const NewQuiz = () => {
-    const [questionList, setQuestionList] = useState(undefined);
+    const [questionList, setQuestionList] = useState([]);
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
@@ -22,11 +22,10 @@ const NewQuiz = () => {
         setAnswer(newArr);
     };
 
-    const addQuestions = (e)=>{
+    const addQuestions = (e) =>{
         e.preventDefault();
-        setCount(count+1);
         let temp  = [];
-        for(let i = 0; i < count; i++) {
+        for(let i = 0; i < count+1; i++) {
             temp[i] = (
                 <div className = 'question-card'>
                     <label class="editQuizLabel">
@@ -63,6 +62,52 @@ const NewQuiz = () => {
                 </div>
             );
         }
+        setCount(count+1);
+        setQuestionList(temp); 
+    }
+    const removeQuestions = (e) =>{
+        e.preventDefault();
+        let temp  = [];
+        for(let i = 0; i < count-1; i++) {
+            temp[i] = (
+                <div className = 'question-card'>
+                    <label class="editQuizLabel">
+                        Question: 
+                        <input type="text" name="Question" onChange={(e) => updateFieldChanged("question", e.target.value, i)} />
+                    </label>
+                    <br/>
+                    <label class="editQuizLabel">
+                        A: 
+                        <input type="text" name="A"  onChange={(e) => updateFieldChanged("A", e.target.value, i)}/>
+                    </label>
+                    <br/>
+                    <label class="editQuizLabel">
+                        B: 
+                        <input type="text" name="B" onChange={(e) => updateFieldChanged("B", e.target.value, i)} />
+                    </label>
+                    <br/>
+                    <label class="editQuizLabel">
+                        C: 
+                        <input type="text" name="C"  onChange={(e) => updateFieldChanged("C", e.target.value, i)}/>
+                    </label>
+                    <br/>
+                    <label class="editQuizLabel">
+                        D: 
+                        <input type="text" name="D"  onChange={(e) => updateFieldChanged("D", e.target.value, i)}/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label class="editQuizLabel">
+                        Answer: 
+                        <input type="text" name="Answer"  onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                    </label>
+                    <br/>
+                </div>
+            );
+        }
+        if(count > 0) {
+            setCount(count-1);
+        }
         setQuestionList(temp); 
     }
     const onSubmitValue= async (e)=>{
@@ -95,6 +140,9 @@ const NewQuiz = () => {
                 <br/>
                 {questionList}
                 <br/>
+                <button className="submit-button" onClick={removeQuestions}>
+                    Remove Question
+                </button>
                 <button className="submit-button" onClick={addQuestions}>
                     Add Question
                 </button>
