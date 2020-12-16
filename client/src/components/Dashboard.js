@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState ,useEffect, useContext} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import './App.css';
 import { AuthContext } from './context/AuthContext';
 import Score from './Score';
@@ -74,7 +74,8 @@ const Dashboard = ()=>{
 
     const buildscores=(showScores)=>showScores.map((showscore)=>{
         return(
-            <Score showscore={showscore}/>
+                <Score showscore={showscore}/>
+            
         )
     })
 
@@ -99,11 +100,16 @@ const Dashboard = ()=>{
         return(
             <div>
                 <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
-                <p>My scores:</p>
-                {scores}
-                <form onSubmit={handleEmail}>
-                    <input type='submit' value='Send my scores to email'/>
-                </form>
+                <Link to='/profile/edit'>Edit my profile</Link>
+                <div className = 'score-card'>
+                    <p>My scores:</p>
+                    {scores}
+                    <form onSubmit={handleEmail}>
+                        <input type='submit' value='Send my scores to email'/>
+                    </form> 
+                    <br/>
+                </div>
+
                 <p>I am teaching:</p>
                 {Imteaching}
                 <input type='button' className='logout-button' value='Log out' onClick={handleLogout}/>

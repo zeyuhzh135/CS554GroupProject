@@ -9,9 +9,10 @@ const Score = (props)=>{
     const [quizScore,setQuizScore] = useState(props.showscore.score);
 
     return(
-        <div className='score-card'>
-        <p>{quizName}: {quizScore}</p>
-       </div>
+        <div>
+          <p>{quizName}: {quizScore}</p>  
+        </div>
+        
     )
 }
 

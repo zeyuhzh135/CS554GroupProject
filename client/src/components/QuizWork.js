@@ -9,7 +9,7 @@ const QuizWork = (props)=>{
     const [quiz,setQuize] = useState(undefined);
     const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
-    let questions
+    let questions;
     useEffect(()=>{
         async function getTheClass(){
             try{

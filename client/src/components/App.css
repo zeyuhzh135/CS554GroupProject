@@ -10,8 +10,9 @@
 
 .App-header {
 	background-color: #000000;
-	height: 150px;
-	padding: 20px;
+	height: 100px;
+	padding-top: 8px;
+	padding-bottom: 10px;
 	color: #222;
 	position: relative;
 }
@@ -34,11 +35,12 @@
 
 .navlink {
 	padding: 0.4rem 0.8rem;
-	background-color: white;
+	background-color: black;
 	border-radius: 3px;
-	color: #28547a;
+	color: white;
 	text-decoration: none !important;
-	margin-right: 20px;
+	font-size: 30px;
+	font: Arial;
 }
 
 .loglink{
@@ -62,7 +64,8 @@
 }
 
 .navbar{
-	margin-right: 10%;
+	margin-left: 5%;
+	margin-right: 6%;
 }
 
 .register-card{
@@ -93,4 +96,7 @@
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	width: 30%;
 	margin: 0 auto 20px;
+}
+.title {
+	color: #61dafb !important;
 }

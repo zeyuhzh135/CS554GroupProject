@@ -133,6 +133,9 @@ router.post('/edit',async(req,res)=>{
     }
 
 });
+router.post('/print',async(req,res)=>{
+console.log(req.body);
+});
 
 router.post('/scores',async(req,res)=>{
     let data = req.body;
