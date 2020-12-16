@@ -33,18 +33,6 @@ const Home = (props) => {
 		getUser();
 	},[]);
 
-	let handleJoin = async (e, classId)=>{
-		e.preventDefault()
-		try{
-			let apiResponse = await axios.post('/users/joinClass',{classId: classId, userID: theUser._id});
-            if(!apiResponse.data.error){
-                alert("join success");
-            }
-        }catch(e){
-            console.log(e);
-        }
-    }
-
 	const buildButton = (theClass) =>{
 		if(authContext.authState&&authContext.authState.logged&&theClass.owner===authContext.authState.user.userId){
 			return(
@@ -54,14 +42,9 @@ const Home = (props) => {
 			)
 		}else if(authContext.authState&&authContext.authState.logged&&theUser){
 			return(
-				<div>
-					<Link className='start-quiz' onClick={(e) => handleJoin(e, theClass._id)}>
-						Join Class
-					</Link>
-					<Link className='start-quiz' to={`/quiz/${theClass._id}`}>
-						Start quiz
-					</Link>
-				</div>
+				<Link className='start-quiz' to={`/quiz/${theClass._id}`}>
+					Start quiz
+				</Link>
 			)
 		}else{
 			return null;
