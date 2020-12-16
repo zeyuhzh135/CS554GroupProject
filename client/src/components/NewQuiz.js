@@ -12,6 +12,7 @@ const NewQuiz = () => {
     const[count, setCount] = useState(0);
     const [answer, setAnswer] = useState([]);
     const [finished, setFinished] = useState(false);
+    const [questionImages, setQuestionImages] = useState(new Map());
 
     const updateFieldChanged = async (input, value, index) => {
         let newArr = answer;
@@ -22,12 +23,24 @@ const NewQuiz = () => {
         setAnswer(newArr);
     };
 
+    const updateImages = async (file, index) =>{
+        let newQuestionImages = questionImages;
+        newQuestionImages.set(index, file);
+        setQuestionImages(newQuestionImages);
+        updateFieldChanged("hasImage",true,index);
+    }
+
     const addQuestions = (e) =>{
         e.preventDefault();
         let temp  = [];
         for(let i = 0; i < count+1; i++) {
             temp[i] = (
                 <div className = 'question-card'>
+                    <label>
+                        Image:
+                        <input type="file" name="file" onChange={(e)=>updateImages(e.target.files[0], i)}/>
+                    </label>
+                    <br/>
                     <label class="editQuizLabel">
                         Question: 
                         <input type="text" name="Question" onChange={(e) => updateFieldChanged("question", e.target.value, i)} />
@@ -71,6 +84,11 @@ const NewQuiz = () => {
         for(let i = 0; i < count-1; i++) {
             temp[i] = (
                 <div className = 'question-card'>
+                    <label>
+                        Image:
+                        <input type="file" name="file" onChange={(e)=>updateImages(e.target.files[0], i)}/>
+                    </label>
+                    <br/>
                     <label class="editQuizLabel">
                         Question: 
                         <input type="text" name="Question" onChange={(e) => updateFieldChanged("question", e.target.value, i)} />
@@ -110,10 +128,25 @@ const NewQuiz = () => {
         }
         setQuestionList(temp); 
     }
+
+    const sendImageIfItHave = async (id, image)=>{
+        let formdata = new FormData();
+        formdata.append("file",image)
+        formdata.append("id",id)
+        formdata.append("type","class")
+        await axios.post("/image/upload",formdata)
+    }
+
     const onSubmitValue= async (e)=>{
         e.preventDefault();
         let theUser = await axios.get('/users/profile');
-        await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
+        let newclass = await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
+        let questions = newclass.data.data.questions
+        questions.map((question,index)=>{
+            if(question.hasImage===true){
+                sendImageIfItHave(question._id,questionImages.get(index))
+            }
+        })
         setFinished(true);
     }
     if(finished) {

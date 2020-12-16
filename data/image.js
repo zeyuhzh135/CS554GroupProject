@@ -35,7 +35,7 @@ const imageMagick = (imagePath, type) => {
         if(process.platform === "win32"){
             command = `magick convert ${imagePath} -resize 256x256! ${imagePath}`
         }else {
-            command = `magick convert ${imagePath} -resize 256x256! ${imagePath}`
+            command = `magick convert ${imagePath} -resize 256x256//! ${imagePath}`
         }
         exec(command, (error, stdout, stderr) => {
             if (error) {
