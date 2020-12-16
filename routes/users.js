@@ -205,13 +205,36 @@ router.post('/',async(req,res)=>{
         await userData.addUser(xss(newUser.firstName), xss(newUser.lastName), xss(newUser.email.toLowerCase()),
             hashedPassword, newUser.isteacher,xss(newUser.city), xss(newUser.state));
         let newRegister = await userData.getUserByEmail(newUser.email.toLowerCase());
-        req.session.user = {firstName:newRegister.firstName,lastName:newRegister.lastName,userId:newRegister._id}
-        res.status(200).json({
-            error:false,
-            errors:[],
-            logged:true,
-            data: newRegister
-        })
+        //req.session.user = {firstName:newRegister.firstName,lastName:newRegister.lastName,userId:newRegister._id}
+        let emailTo = newRegister.email;
+        let htmlstring="<div>Please active your account with blow link<div>";
+        let link = "http:/localhost:3000/varification"+newRegister._id;
+        htmlstring += `<div><a href=${link}>${link}<div>`;
+        var mailOptions = {
+            from: "Quiz App <groupprojectcs554fall2020@gmail.com>",
+            to:emailTo,
+            subject:'Email varification',
+            text:'Please varify your account at Quiz App',
+            html: htmlstring
+        }
+        let emailresponse = await transporter.sendMail(mailOptions);
+        console.log(emailresponse);
+        if(emailresponse.accepted){
+            res.status(200).json({
+                error:false,
+                errors:[],
+                logged:true,
+                data: newRegister
+            })
+        }else{
+            errors.push("Unable to send the email");
+            res.status(200).json({
+                error:true,
+                errors:errors,
+                logged:true,
+                data:null
+            })
+        }
     }catch(e){
         res.status(500).json({error: e.toString()})
   }
@@ -272,6 +295,39 @@ router.get('/profile/:userId', async(req,res)=>{
         data:user
     })
 })
+
+//To check the varification url
+router.get('/varification/:userId',async(req,res)=>{
+    let user;
+    try{
+        user = await userData.getUser(req.params.userId);
+    }catch(e){
+        res.status(200).json({
+            error:true,
+            errors:[e],
+            valid:false,
+            message:'Invalid url to varify the email'
+        })
+    }
+    if(user&&!user.active){
+        console.log(user);
+        res.status(200).json({
+            error:false,
+            errors:[],
+            valid:true,
+            message:'Please click the button the active your account'
+        })
+    }else{
+        console.log(user);
+        res.status(200).json({
+            error:true,
+            errors:["No such user or the user has been actived"],
+            valid:false,
+            message:'No such user or the user has been actived'
+        })
+    }
+})
+
 
 router.get('/logout',async(req,res)=>{
     if(!req.session.user){

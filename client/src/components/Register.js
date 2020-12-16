@@ -44,20 +44,21 @@ const Register = () => {
             setError(true);
             setErrors(inputErrors);
         }else{
-            let isteacher = role.value=='teacher'?true:false
+            let isteacher = role.value==='teacher'?true:false
             try{
                 let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,isteacher:isteacher,city:city.value,state:state.value});
                 //console.log(apiResponse);
                 if(!apiResponse.data.error){
-                    let loggedInUser = {
-                        firstName: apiResponse.data.data.firstName,
-                        lastName:apiResponse.data.data.lastName,
-                        userId:apiResponse.data.data._id
-                    }
-                    authContext.setAuthState({
-                        logged:true,
-                        user:loggedInUser
-                    })
+                    // let loggedInUser = {
+                    //     firstName: apiResponse.data.data.firstName,
+                    //     lastName:apiResponse.data.data.lastName,
+                    //     userId:apiResponse.data.data._id
+                    // }
+                    // authContext.setAuthState({
+                    //     logged:true,
+                    //     user:loggedInUser
+                    // })
+                    alert("Please check your email to active your account");
                     setRedirectToHome(true);
                 }else{
                     inputErrors = apiResponse.data.errors;
