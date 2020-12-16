@@ -23,10 +23,9 @@ const ChatNav = () => {
                 setUserName(user.lastName + " " + user.firstName);
                 setClasses(tempClasses);
             }
+            setLoading(false);
         }
-
         getUserInfo();
-        setLoading(false);
     },[])
 
     if(loading){

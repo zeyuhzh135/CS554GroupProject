@@ -87,7 +87,7 @@ module.exports = {
 
     async updateUser(id , updatedUser) {
         const usersCollection = await users();
-    
+        id = ObjectId(id)
         const updatedUserData = {};
     
         if (updatedUser.firstName) {
@@ -121,8 +121,8 @@ module.exports = {
         if(updatedUser.active){
             updatedUserData.active=updatedUser.active;
         }
-        await usersCollection.updateOne({_id:id}, {$set:updatedUserData});
-    
+        let result = await usersCollection.updateOne({_id:id}, {$set:updatedUserData});
+        if(result.modifiedCount === 0) throw "update failed"
         return await this.getUser(id);
     },
     //when a teacher create a quiz

@@ -35,7 +35,7 @@ router.post("/joinClass", async (req,res)=>{
         let userId = req.session.user.userId;
         let classId = req.body.classId;
         try {
-            let user = await userD.getUser(userId);
+            let user = await userData.getUser(userId);
             if(!user.classes.includes(classId)){
                 let result = await userData.addClassToUser(userId,classId)
             }
@@ -208,7 +208,7 @@ router.post('/',async(req,res)=>{
         //req.session.user = {firstName:newRegister.firstName,lastName:newRegister.lastName,userId:newRegister._id}
         let emailTo = newRegister.email;
         let htmlstring="<div>Please active your account with blow link<div>";
-        let link = "http:/localhost:3000/varification"+newRegister._id;
+        let link = "http:/localhost:3000/varification/"+newRegister._id;
         htmlstring += `<div><a href=${link}>${link}<div>`;
         var mailOptions = {
             from: "Quiz App <groupprojectcs554fall2020@gmail.com>",
@@ -342,5 +342,25 @@ router.get('/logout',async(req,res)=>{
     res.status(200).json({
         loggedout:true
     })
+})
+
+router.post('/update', async (req, res)=>{
+    let info = req.body;
+    try {
+        await userData.updateUser(info._id, info)
+        res.status(200).json({
+            error:false,
+            errors:null,
+            logged:true,
+            data:null
+        })
+    }catch (e){
+        res.status(404).json({
+            error:true,
+            errors:e,
+            logged:true,
+            data:null
+        })
+    }
 })
 module.exports = router;
