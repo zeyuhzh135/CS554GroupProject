@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,useLayoutEffect } from 'react';
+import React, { useEffect, useState,useLayoutEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
@@ -8,7 +8,8 @@ const EmailVarification = (props)=>{
     const [loading,setLoading] = useState(true);
     //const [checkedInvalidurl,setcheckedInvalidurl] = useState(false);
     const [invalidurl,setInvalidurl] = useState(false);
-    const [firstResponse,setFirstResponse] = useState(undefined);
+    const [authUser,setAuthUser] = useState(undefined);
+    const [error, setError] = useState(false);
 
     useLayoutEffect(()=>{
         setLoading(true);
@@ -16,19 +17,14 @@ const EmailVarification = (props)=>{
         async function varifyurl(){
             let apires
             try{
-               apires = await axios.get(`/users/varification/${props.match.params.id}`);
-            if(apires&&!apires.error&&apires.valid){
-                console.log(apires);
-                setVarified(true);
-                setInvalidurl(false);
+               apires = await axios.get(`/users/profile/${props.match.params.id}`);
+            if(apires&&!apires.error&&!apires.data.data.active){
+                setAuthUser(apires.data.data);
             }else if(apires&&!apires.valid){
-                console.log(apires);
-                setVarified(false);
-                setInvalidurl(true);
+                setError(true)
             }
-               return apires;
             }catch(e){
-                setInvalidurl(true);
+                setError(true);
             }  
 
         }
@@ -36,15 +32,50 @@ const EmailVarification = (props)=>{
         console.log(invalidurl);
         console.log('end');
         setLoading(false);
-    },[props.match.params.id]);
+    },[]);
 
-    return(
+    const handleActive=async (e)=>{
+        e.preventDefault();
+        try{
+            let apire = await axios.post('/users/active',{userId:authUser._id});
+            if(!apire.data.error){
+                alert("Successfully activate your account");
+                return(
+                   <Redirect to='/login'/> 
+                )
+                
+            }else{
+                return(
+                   <Redirect to="/404"/> 
+                )
+                
+            }
+        }catch(e){
+            return(
+                <Redirect to="/404" />
+            )
+            
+        }
+        
+    }
+
+    if(!authUser){
+        return(
+            <p>User not exist</p>
+        )
+    }else{
+        return(
         <div>
-            <p>{invalidurl}</p>
-            <p>{props.match.params.id}</p>
+            <p>{authUser.firstName} {authUser.lastName}</p>
+            <p>Click the button to active your account</p>
+            <form onSubmit={handleActive}>
+                <input type="submit" value="Active"/>
+            </form>
         </div>
 
     )
+    }
+
 
 }
 

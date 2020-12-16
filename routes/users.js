@@ -270,6 +270,29 @@ router.get('/profile',async (req,res)=>{
     }
 })
 
+router.post('/active',async(req,res)=>{
+    if(!req.body.userId){
+        res.status(400);
+    }
+    let user
+    try{
+        user = await userData.updateUser(req.body.userId,{active:true});
+    }catch(e){
+        res.status(400);
+        return;
+    }
+    if(user){
+        res.status(200).json({
+            error:false,
+            errors:[],
+            loggin:false,
+            data: "successfully activate the user"
+        })
+    }else{
+        res.status(400);
+    }
+})
+
 router.get('/profile/:userId', async(req,res)=>{
     // if (req.params.userId !== req.session.user.userId) {
     //     res.redirect('/');
@@ -281,12 +304,13 @@ router.get('/profile/:userId', async(req,res)=>{
     try{
         user = await userData.getUser(req.params.userId);
     }catch(e){
-        res.status(400).json({
+        res.status(200).json({
             error:true,
             errors:e,
             logged:false,
             data:null
         })
+        return;
     }
     res.status(200).json({
         error:false,
@@ -294,6 +318,7 @@ router.get('/profile/:userId', async(req,res)=>{
         logged:true,
         data:user
     })
+    return;
 })
 
 //To check the varification url
