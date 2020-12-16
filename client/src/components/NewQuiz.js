@@ -129,11 +129,11 @@ const NewQuiz = () => {
         setQuestionList(temp); 
     }
 
-    const sendImageIfItHave = async (id, image, type)=>{
+    const sendImageIfItHave = async (id, image)=>{
         let formdata = new FormData();
         formdata.append("file",image)
         formdata.append("id",id)
-        formdata.append("type",type)
+        formdata.append("type","class")
         await axios.post("/image/upload",formdata)
     }
 
@@ -144,7 +144,7 @@ const NewQuiz = () => {
         let questions = newclass.data.data.questions
         questions.map((question,index)=>{
             if(question.hasImage===true){
-                sendImageIfItHave(question._id,questionImages.get(index),"class")
+                sendImageIfItHave(question._id,questionImages.get(index))
             }
         })
         setFinished(true);

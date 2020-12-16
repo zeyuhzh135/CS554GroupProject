@@ -60,6 +60,7 @@ const QuizWork = (props) => {
             return (
                 <div className='question-card' key={question.question}>
                     {imageRender(question.hasImage, question._id)}
+                    <br/>
                     <lable>
                         Q{++i}: {question.question}
                     </lable>
