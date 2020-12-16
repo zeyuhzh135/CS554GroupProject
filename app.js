@@ -10,6 +10,10 @@ const io = require("socket.io")(server, {
     }
 });
 const cors = require('cors');
+const {exec} = require("child_process");
+
+const path = require('path');
+global.appRoot = path.resolve(__dirname);
 
 app.use(cors());
 app.use(express.json());
