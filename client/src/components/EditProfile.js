@@ -53,20 +53,24 @@ const EditProfile = () => {
         e.preventDefault();
         setState(e.target.value)
     }
-    const handleSubmit = () => {
+
+
+    const handleSubmit = (e) => {
         let userUpdatedata = authUser;
+        //handle image upload or update base on if user already have a picture
         if(uploadImage){
             let formdata = new FormData();
             formdata.append("file",uploadImage)
             formdata.append("id",userUpdatedata._id)
             formdata.append("type","user")
-            if(userUpdatedata.hasPicture==false){
+            if(userUpdatedata.hasPicture===false){
                 userUpdatedata.hasPicture = true
                 axios.post("/image/upload",formdata)
             }else {
                 axios.post("/image/update",formdata)
             }
         }
+
         if(firstName){
             userUpdatedata.firstName = firstName;
         }
@@ -80,6 +84,7 @@ const EditProfile = () => {
             userUpdatedata.state = state;
         }
         axios.post("/users/update", userUpdatedata)
+
     }
 
     const imageRender = (hasPicture) => {
