@@ -32,9 +32,14 @@ const Dashboard = ()=>{
     const handleEmail = async(e)=>{
         e.preventDefault();
         console.log(authUser.showScores);
-        let t1 = axios.post('/users/email-score',authUser.showScores);
-        if(!t1.error) alert('An email has been sent')
-        else alert('Unable to send the email')
+        try{
+            let t1 = await axios.post('/users/email-score',authUser.showScores);
+            if(!t1.error) alert('An email has been sent')
+            else alert('Unable to send the email')
+        }catch(e){
+            alert('Unable to send the email')
+        }
+
     }
     useEffect( async ()=>{
         const theUser = await axios.get('/users/profile');

@@ -15,6 +15,7 @@ const { ObjectId } = require('mongodb');
 //         isteacher:Boolean,
 //         state: string,
 //         hasPicture:Boolean,
+//         active:Boolean,
 //         teaching: array of class ids,
 //         classes: array of class ids,
 //         scores: [
@@ -44,7 +45,8 @@ module.exports = {
             isteacher:isteacher,
             city: city,
             state: state,
-            hasPicture,
+            hasPicture:hasPicture,
+            active:false,
             teaching:teaching,
             classes: classes,
             scores: scores
@@ -113,7 +115,11 @@ module.exports = {
         }
 
         if(updatedUser.hasPicture){
-            updatedUser.hasPicture = updatedUser.hasPicture;
+            updatedUserData.hasPicture = updatedUser.hasPicture;
+        }
+
+        if(updatedUser.active){
+            updatedUserData.active=updatedUser.active;
         }
         await usersCollection.updateOne({_id:id}, {$set:updatedUserData});
     

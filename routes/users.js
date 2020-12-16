@@ -70,6 +70,14 @@ router.post('/email-score',async(req,res)=>{
         res.status(500);
         return;
     }
+    let requestUser,emailTo;
+    try{
+        requestUser = await userData.getUser(req.session.user.userId);
+        emailTo = requestUser.email;
+    }catch(e){
+        emailTo=undefined;
+    }
+
     let htmlstring = "";
     for(s of info){
         //let quizdetail = await classData.getClass(s.classId);
@@ -79,26 +87,31 @@ router.post('/email-score',async(req,res)=>{
         htmlstring+=`<div><p>${s.score}<p><div>`
     }
     console.log(htmlstring);
+    console.log(emailTo);
+    let e = !emailTo?true:false
+    if(htmlstring==""){
+        htmlstring="<div><p>You have not done any quiz yet<p><div>"
+    }
     var mailOptions = {
-        from: "Quiz App <groupprojectcs554fall2020@outlook.com>",
-        to:"zhuang47@stevens.edu",
-        subject:'for testing',
-        text:'test1',
+        from: "Quiz App <groupprojectcs554fall2020@gmail.com>",
+        to:emailTo,
+        subject:'Quiz App Scores',
+        text:'Quiz App Scores',
         html:htmlstring
     }
     let emailresponse = await transporter.sendMail(mailOptions);
     console.log(emailresponse);
-    if(emailresponse.accepted){
+    if(emailresponse.accepted&&!e){
         res.status(200).json({
             error:false,
             errors:null,
             logged:true,
-            data: 'The email has been send'
+            data: 'The email has been sent'
         })
     }else{
         res.status(200).json({
             error:true,
-            errors:["Unable to send email"],
+            errors:["Unable to send the email"],
             logged:true,
             data:null
         })
