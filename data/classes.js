@@ -102,17 +102,19 @@ module.exports = {
         return await this.getClass(classId);
     },
 
-    async addStudentToClass(classId,studentId, score){
+    async addStudentToClass(classId,studentId, score,scoreboard){
         if(!classId) throw 'No classId';
         if(!studentId) throw 'No studentId';
         if(typeof(score) != 'number') throw 'invalid score';
+        if(!scoreboard) throw 'Need score board';
         const classesCollection = await classes();
         let newStudent = {
             id: studentId,
-            score:score
+            score:score,
+            scoreboard:scoreboard
         }
         const updatedInfo = await classesCollection.updateOne({_id:classId},{$push:{students:newStudent}});
-        const updatedUser = await users.addScoreToUser(studentId,classId,score);
+        const updatedUser = await users.addScoreToUser(studentId,classId,score,scoreboard);
         if(updatedInfo.modifiedCount === 0 || !updatedUser) throw 'Can not add class to user';
         return this.getClass(classId);
     }

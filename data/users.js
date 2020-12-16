@@ -149,10 +149,11 @@ module.exports = {
     },
 
     //for students
-    async addScoreToUser(userId, classId, score){
+    async addScoreToUser(userId, classId, score,scoreboard){
         if(!userId) throw 'You must provide a user id';
         if(!classId) throw 'You must provide a class id';
         if(typeof score != 'number')  throw 'You must provide a valid score';
+        if(!scoreboard) throw 'Need scoreboard';
         if(typeof userId ==='string'){
             userId = ObjectId(userId);
         };
@@ -160,7 +161,8 @@ module.exports = {
         const usersCollection = await users();
         let newScore = {
             classId:classId,
-            score:score
+            score:score,
+            scoreboard:scoreboard
         }
         const updateInfo = await usersCollection.updateOne({_id:userId},{$push:{scores:newScore}});
         if(updateInfo.modifiedCount === 0) throw 'Can not add score to user';

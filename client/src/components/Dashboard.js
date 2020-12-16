@@ -32,6 +32,9 @@ const Dashboard = ()=>{
     const handleEmail = async(e)=>{
         e.preventDefault();
         console.log(authUser.showScores);
+        let t1 = axios.post('/users/email-score',authUser.showScores);
+        if(!t1.error) alert('An email has been sent')
+        else alert('Unable to send the email')
     }
     useEffect( async ()=>{
         const theUser = await axios.get('/users/profile');
@@ -46,7 +49,7 @@ const Dashboard = ()=>{
         if(theUser.data.logged && theUser.data.data){
             let showClasses = [];
             let showScores = [];
-            for(let c of theUser.data.data.classes){
+            for(let c of theUser.data.data.teaching){
                 const theC = await axios.get(`/classes/${c}`);
                 showClasses.push({
                     classId: theC.data.data._id,
@@ -58,7 +61,8 @@ const Dashboard = ()=>{
                 showScores.push({
                     classId:theS.data.data._id,
                     className:theS.data.data.name,
-                    score: s.score
+                    score: s.score,
+                    scoreboard:s.scoreboard
                 })
             }
             setAuthUser({
@@ -76,8 +80,7 @@ const Dashboard = ()=>{
 
     const buildscores=(showScores)=>showScores.map((showscore)=>{
         return(
-                <Score showscore={showscore}/>
-            
+                <Score showscore={showscore}/>          
         )
     })
 
@@ -105,7 +108,10 @@ const Dashboard = ()=>{
                 <Link to='/profile/edit'>Edit my profile</Link>
                 <div className = 'score-card'>
                     <p>My scores:</p>
-                    {scores}
+                    <ul>
+                        {scores}
+                    </ul>
+                    
                     <form onSubmit={handleEmail}>
                         <input type='submit' value='Send my scores to email'/>
                     </form> 

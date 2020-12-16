@@ -68,7 +68,7 @@ async function main(){
         B: "20",
         C: "30",
         D: "40",
-        correctAns : "A"
+        correctAns: "A"
     },
     {
         question:"The key to the ability of DNA to pass and store genetic information is its",
@@ -77,7 +77,7 @@ async function main(){
         B: "double stranded structure",
         C: "deoxyribose sugar",
         D: "nitrogen base",
-        correctAns : "B"
+        correctAns: "B"
     }
     ]
     let quiz1questions = [
@@ -88,7 +88,7 @@ async function main(){
             B: "variable",
             C: "for",
             D: "if",
-            correctAns : "A"  
+            correctAns: "A"  
         },
         {
             question:"To run a function when a user clicks a button on the screen, add this attribute to the <button> tag:",
@@ -96,7 +96,7 @@ async function main(){
             B: "onPush",
             C: "onBlitzen",
             D: "onClick",
-            correctAns : "D"  
+            correctAns: "D"  
         },
         {
             question:"To work with a specific element on the web page, such as an input box or paragraph, from a Javascript function you should use its:",

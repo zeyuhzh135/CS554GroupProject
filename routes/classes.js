@@ -166,12 +166,12 @@ router.post('/scores',async(req,res)=>{
                 scoreboard.push({
                     correction:false,
                     student_answers:studentAns[i],
-                    correct_answers:theClassInfo.questions[i].correctAn
+                    correct_answers:theClassInfo.questions[i].correctAns
                 })
             }
         }
         score = 100*rightcount/studentAns.length
-        await classData.addStudentToClass(theClassInfo._id,user,score);
+        await classData.addStudentToClass(theClassInfo._id,user,score,scoreboard);
     }catch(e){
         res.status(500).json({
             error:true,

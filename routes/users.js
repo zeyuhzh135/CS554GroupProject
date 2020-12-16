@@ -6,6 +6,7 @@ const userData = data.users;
 const passwordHash = require('password-hash');
 const { ObjectId } = require('mongodb');
 const xss = require('xss');
+const nodemailer = require("nodemailer");
 
 // res.json={
 //     error: Boolean,
@@ -13,6 +14,21 @@ const xss = require('xss');
 //     logged:Boolean,
 //     data:{}
 // }
+
+const transporter = nodemailer.createTransport({
+    service:'gmail.com',
+    secure:true,
+    port:465,
+    auth:{
+        user:'groupprojectcs554fall2020@gmail.com',
+        pass:'nidayedelajigmailsba123'
+    },
+    tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
+    }
+});
+
 
 router.post("/joinClass", async (req,res)=>{
     if(req.session.user){
@@ -44,6 +60,48 @@ router.post("/joinClass", async (req,res)=>{
             logged:false,
             data:null
         });
+    }
+})
+
+router.post('/email-score',async(req,res)=>{
+    let info = req.body;
+    //console.log(info);
+    if(!req.session.user){
+        res.status(500);
+        return;
+    }
+    let htmlstring = "";
+    for(s of info){
+        //let quizdetail = await classData.getClass(s.classId);
+        let quiz = s.className;
+        let scoreboard = s.scoreboard;
+        htmlstring+=`<div><p>${quiz}<p><div>`;
+        htmlstring+=`<div><p>${s.score}<p><div>`
+    }
+    console.log(htmlstring);
+    var mailOptions = {
+        from: "Quiz App <groupprojectcs554fall2020@outlook.com>",
+        to:"zhuang47@stevens.edu",
+        subject:'for testing',
+        text:'test1',
+        html:htmlstring
+    }
+    let emailresponse = await transporter.sendMail(mailOptions);
+    console.log(emailresponse);
+    if(emailresponse.accepted){
+        res.status(200).json({
+            error:false,
+            errors:null,
+            logged:true,
+            data: 'The email has been send'
+        })
+    }else{
+        res.status(200).json({
+            error:true,
+            errors:["Unable to send email"],
+            logged:true,
+            data:null
+        })
     }
 })
 

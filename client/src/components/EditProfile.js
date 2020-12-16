@@ -51,13 +51,13 @@ const EditProfile = ()=>{
                         <label>Image</label><br/>
                         <p>Put the edit image here</p>
                         <label>First Name</label><br/>
-                        <input type = 'text' name='first_name' placeholder='First Name' onChange={firstNameChange}/><br/>
+                        <input type = 'text' name='first_name' placeholder='First Name' value={authUser.firstName} onChange={firstNameChange}/><br/>
                         <label>Last Name</label><br/>
-                        <input type = 'text' name='last_name' placeholder='Last Name' onChange={lastNameChange}/><br/>
+                        <input type = 'text' name='last_name' placeholder='Last Name' value={authUser.lastName} onChange={lastNameChange}/><br/>
                         <label>City</label><br/>
-                        <input type = 'text' name='city' placeholder='City' onChange={cityChange}/><br/>
+                        <input type = 'text' name='city' placeholder='City' value={authUser.city} onChange={cityChange}/><br/>
                         <label>State</label><br/>
-                        <select name = 'state' id='state' onChange={cityChange}>
+                        <select name = 'state' id='state' value={authUser.state} onChange={cityChange}>
                         <option value="" defaultValue="selected">Select a State</option>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>

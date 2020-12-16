@@ -28,8 +28,8 @@ const Nav = () => {
         getUser();
     },[authContext.authState]);
     
-    if(auth&&authUser&&authContext.authState.logged){
-        console.log(authContext.authState);
+    if(authUser&&authContext.authState.logged){
+        //console.log(authContext.authState);
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>

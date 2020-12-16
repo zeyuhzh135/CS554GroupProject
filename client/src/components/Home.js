@@ -21,7 +21,16 @@ const Home = (props) => {
 				console.log(e);
 			}
 		}
-		getclasses()
+		async function getUser(){
+			try{
+				let theU = await axios.get('/users/profile');
+				settheUser(theU.data.data);
+			}catch(e){
+				console.log(e);
+			}
+		}
+		getclasses();
+		getUser();
 	},[]);
 
 	const buildButton = (theClass) =>{
@@ -31,7 +40,7 @@ const Home = (props) => {
 					Edit quiz
 				</Link>	
 			)
-		}else if(authContext.authState&&authContext.authState.logged){
+		}else if(authContext.authState&&authContext.authState.logged&&theUser){
 			return(
 				<Link className='start-quiz' to={`/quiz/${theClass._id}`}>
 					Start quiz
@@ -74,7 +83,7 @@ const Home = (props) => {
 	classes = classList && classList.map((theClass)=>{
 		return buildClass(theClass);
 	});
-	if(authContext.authState&&authContext.authState.logged){
+	if(authContext.authState&&authContext.authState.logged&&theUser){
 		newQuiz = buildNewQuizLink()
 	}
 	return (
