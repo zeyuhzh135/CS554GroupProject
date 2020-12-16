@@ -56,7 +56,7 @@ router.get("/get", async (req, res) => {
     try {
         let id = req.query.id;
         let type = req.query.type;
-        let image = await imageData.getImageByIdAndType(info.id, info.type);
+        let image = await imageData.getImageByIdAndType(id, type);
         let imagePath = image.imagePath;
         res.status(200).sendFile(imagePath);
     } catch (e) {
