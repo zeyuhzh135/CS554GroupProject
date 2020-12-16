@@ -53,9 +53,10 @@ router.post("/upload", async (req, res) => {
 })
 
 router.get("/get", async (req, res) => {
-    let info = req.body
     try {
-        let image = await imageData.getImageByIdAndType(info.id, info.type);
+        let id = req.query.id;
+        let type = req.query.type;
+        let image = await imageData.getImageByIdAndType(id, type);
         let imagePath = image.imagePath;
         res.status(200).sendFile(imagePath);
     } catch (e) {
