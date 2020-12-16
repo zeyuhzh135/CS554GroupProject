@@ -12,8 +12,9 @@ const { ObjectId } = require('mongodb');
 //         email: string,
 //         passwordHash: string,
 //         city: string,
-//         isteacher:Boolean
+//         isteacher:Boolean,
 //         state: string,
+//         hasPicture:Boolean,
 //         teaching: array of class ids,
 //         classes: array of class ids,
 //         scores: [
@@ -25,7 +26,7 @@ const { ObjectId } = require('mongodb');
 //     }
 
 module.exports = {
-    async addUser(firstName, lastName, email, passwordHash, isteacher, city, state, teaching = [],classes=[], scores=[]) {
+    async addUser(firstName, lastName, email, passwordHash, isteacher, city, state, hasPicture=false,teaching = [],classes=[], scores=[]) {
         if(!firstName || typeof firstName!= 'string') throw 'you must provide a valid first name';
         if(!lastName || typeof lastName!= 'string') throw 'you must provide a valid last name';
         if(!email || typeof email!= 'string') throw 'you must provide a valid email';
@@ -43,6 +44,7 @@ module.exports = {
             isteacher:isteacher,
             city: city,
             state: state,
+            hasPicture,
             teaching:teaching,
             classes: classes,
             scores: scores
@@ -110,6 +112,9 @@ module.exports = {
             updatedUserData.state = updatedUser.state;
         }
 
+        if(updatedUser.hasPicture){
+            updatedUser.hasPicture = updatedUser.hasPicture;
+        }
         await usersCollection.updateOne({_id:id}, {$set:updatedUserData});
     
         return await this.getUser(id);

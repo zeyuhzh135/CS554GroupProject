@@ -21,6 +21,7 @@ const Register = () => {
     const email = useFormInput('');
     const password = useFormInput('');
     const confirmedPasseord = useFormInput('');
+    const role = useFormInput('');
     const city = useFormInput('');
     const state= useFormInput('');
     const [error,setError] = useState(false);
@@ -36,14 +37,16 @@ const Register = () => {
         if(!lastName.value) inputErrors.push('Need Last name');
         if(!confirmedPasseord.value) inputErrors.push('Need confirmed password');
         if(confirmedPasseord.value !== password.value) inputErrors.push('password and confirmed password do not match');
+        if(!role.value) inputErrors.push('Need to declare your role of student/teacher');
         if(!city.value) inputErrors.push('Need city');
         if(!state.value) inputErrors.push('Need state');
         if(inputErrors.length>0){
             setError(true);
             setErrors(inputErrors);
         }else{
+            let isteacher = role.value=='teacher'?true:false
             try{
-                let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,city:city.value,state:state.value});
+                let apiResponse = await axios.post('/users',{firstName:firstName.value,lastName:lastName.value,email:email.value,password:password.value,password_confirm:confirmedPasseord.value,isteacher:isteacher,city:city.value,state:state.value});
                 console.log(apiResponse);
                 if(!apiResponse.data.error){
                     let loggedInUser = {
@@ -100,6 +103,11 @@ const Register = () => {
                         <input type = 'password' {...password} name='password' placeholder='Password'/><br/>
                         <label>Confirmed Password</label><br/>
                         <input type = 'password' {...confirmedPasseord} name='confirmed_password' placeholder='Confirmed Password'/><br/>
+                        <lable>I am a </lable>
+                        <select name='role' {...role} id='role'>
+                        <option value='student' defaultValue="selected">student</option>
+                        <option value='teacher'>teacher</option>
+                        </select><br/>
                         <label>City</label><br/>
                         <input type = 'text' {...city} name='city' placeholder='City'/><br/>
                         <label>State</label><br/>
@@ -188,6 +196,11 @@ const Register = () => {
                             <input type = 'password' {...password} name='password' placeholder='Password'/><br/>
                             <label>Confirmed Password</label><br/>
                             <input type = 'password' {...confirmedPasseord} name='confirmed_password' placeholder='Confirmed Password'/><br/>
+                            <lable>I am a </lable>
+                            <select name='role' {...role} id='role'>
+                            <option value='student' defaultValue="selected">student</option>
+                            <option value='teacher'>teacher</option>
+                            </select><br/>
                             <label>City</label><br/>
                             <input type = 'text' {...city} name='city' placeholder='City'/><br/>
                             <label>State</label><br/>

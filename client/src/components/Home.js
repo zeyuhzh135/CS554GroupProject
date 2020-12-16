@@ -83,7 +83,7 @@ const Home = (props) => {
 	classes = classList && classList.map((theClass)=>{
 		return buildClass(theClass);
 	});
-	if(authContext.authState&&authContext.authState.logged&&theUser){
+	if(authContext.authState&&authContext.authState.logged&&theUser&&theUser.isteacher){
 		newQuiz = buildNewQuizLink()
 	}
 	return (
