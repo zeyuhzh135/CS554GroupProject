@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './Home';
+import ClassPage from './ClassPage';
 import Login from './Login';
 import Register from './Register';
 import {AuthProvider} from './context/AuthContext';
@@ -33,6 +34,7 @@ function App() {
                 <br/>
                 <div className='App-body'>
                     <Route exact path='/' render={props=><Home route='/'/>} />
+                    <Route exact path='/Classes' component={ClassPage}/>
                     <Route exact path='/login' component={Login}/>
                     <Route path='/register' component={Register}/>
                     <Route path='/chatRoom' component={ChatNav}/>
