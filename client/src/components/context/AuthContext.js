@@ -4,11 +4,15 @@ const AuthContext = createContext();
 const {Provider} = AuthContext;
 
 const AuthProvider = ({children})=>{
+    const logged = localStorage.getItem("cs554-fp-logged");
+    const userInfo = localStorage.getItem("cs554-fp-user")
     const [authState, setAuthState] = useState({
-        logged:false,
-        user:undefined
+        logged:logged,
+        user:userInfo?JSON.parse(userInfo):{}
     })
     const setAuth = ({logged,user})=>{
+    localStorage.setItem("cs554-fp-logged", logged);
+    localStorage.setItem("cs554-fp-user",JSON.stringify(user));
     setAuthState({
         logged,
         user
