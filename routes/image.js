@@ -41,7 +41,7 @@ router.post("/upload", async (req, res) => {
                     data: null
                 });
             } catch (e) {
-                res.sendStatus(500).json({
+                res.status(500).json({
                     error: true,
                     errors: e,
                     logged: true,
@@ -92,7 +92,7 @@ router.post("/update", async (req, res) => {
                     data: null
                 });
             } catch (e) {
-                res.sendStatus(500).json({
+                res.status(500).json({
                     error: true,
                     errors: e,
                     logged: true,

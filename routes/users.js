@@ -274,4 +274,24 @@ router.get('/logout',async(req,res)=>{
         loggedout:true
     })
 })
+
+router.post('/update', async (req, res)=>{
+    let info = req.body;
+    try {
+        await userData.updateUser(info._id, info)
+        res.status(200).json({
+            error:false,
+            errors:null,
+            logged:true,
+            data:null
+        })
+    }catch (e){
+        res.status(404).json({
+            error:true,
+            errors:e,
+            logged:true,
+            data:null
+        })
+    }
+})
 module.exports = router;
