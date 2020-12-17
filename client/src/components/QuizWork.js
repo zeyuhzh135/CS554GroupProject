@@ -7,6 +7,8 @@ import './App.css';
 const QuizWork = (props) => {
     const [questionList, setQuestionList] = useState(undefined);
     const [quiz, setQuize] = useState(undefined);
+    const [unanswered, setUnanswered] = useState(undefined);
+    const [count, setCount] = useState(0);
     const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
     let questions;
@@ -23,6 +25,7 @@ const QuizWork = (props) => {
                     description: apires.data.data.description,
                     teacher: teacher
                 })
+                setCount(apires.data.data.questions.length);
                 setQuestionList(apires.data.data.questions);
             } catch (e) {
                 console.log(e);
@@ -41,8 +44,18 @@ const QuizWork = (props) => {
     const onSubmitValue = async (e) => {
         e.preventDefault();
         //let theUser = await axios.get('/users/profile');
-        let apiResponse = await axios.post('/classes/scores', {answers: answer, classid: quiz.id});
-        setFinished(true);
+        let x = 0;
+        let temp = [];
+        for(let i = 0; i < count; i++) {
+            if(answer[i] === undefined) {
+                temp[x++] = (<p>Choose Answer for Question #{i+1}</p>)
+            }
+        }
+        if(temp.length == 0) {
+            let apiResponse = await axios.post('/classes/scores', {answers: answer, classid: quiz.id});
+            setFinished(true);
+        }
+        setUnanswered(temp);
     }
 
     const imageRender = (hasPicture, id) => {
@@ -92,6 +105,7 @@ const QuizWork = (props) => {
                 <p>{quiz.teacher}</p>
                 <form onSubmit={onSubmitValue}>
                     {questions}
+                    {unanswered}
                     <button className="submit-button" type="submit">
                         Submit
                     </button>

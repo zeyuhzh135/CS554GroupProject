@@ -39,28 +39,52 @@ const Home = (props) => {
 			let apiResponse = await axios.post('/users/joinClass',{classId: classId, userID: theUser._id});
             if(!apiResponse.data.error){
                 alert("join success");
-            }
+			}
         }catch(e){
             console.log(e);
         }
     }
 
 	const buildButton = (theClass) =>{
-		if(authContext.authState&&authContext.authState.logged&&theClass.owner===authContext.authState.user.userId){
+		if(authContext.authState&&authContext.authState.logged&&theUser&&theUser._id===theClass.owner){
 			return(
 				<Link className='edit-quiz' to={`/editquiz/${theClass._id}`}>
 					Edit quiz
-				</Link>	
+				</Link>
+	
 			)
 		}else if(authContext.authState&&authContext.authState.logged&&theUser){
+			let joinClass = false;
+			let startquiz = false;
+			if(theUser.classes.includes(theClass._id)){
+				joinClass=true;
+			}
+			for(let s of theUser.scores){
+				console.log(s);
+				if(s.classId===theClass._id){
+					startquiz = true;
+				}
+				break;
+			}
+			let JoinButton = null;
+			let startButton = null;
+			if(!joinClass){
+				JoinButton= <Link className='start-quiz' onClick={(e) => handleJoin(e, theClass._id)}>
+					Join Class
+				</Link>
+			}
+			if(!startquiz){
+				startButton = <Link className='start-quiz' to={`/quiz/${theClass._id}`}>
+					Start quiz
+				</Link>
+			}else{
+				startButton= <Link to={`/scoreboard/${theClass._id}`}>Quiz Score</Link>
+			}
+
 			return(
 				<div>
-					<Link className='start-quiz' onClick={(e) => handleJoin(e, theClass._id)}>
-						Join Class
-					</Link>
-					<Link className='start-quiz' to={`/quiz/${theClass._id}`}>
-						Start quiz
-					</Link>
+					{JoinButton}
+					{startButton}
 				</div>
 			)
 		}else{

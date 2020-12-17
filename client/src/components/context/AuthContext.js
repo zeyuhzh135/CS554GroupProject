@@ -5,23 +5,25 @@ const AuthContext = createContext();
 const {Provider} = AuthContext;
 
 const AuthProvider = ({children})=>{
-    // const logged = localStorage.getItem("cs554-fp-logged");
-    // const userInfo = localStorage.getItem("cs554-fp-user")
-    // const [authState, setAuthState] = useState({
-    //     logged:logged,
-    //     user:userInfo?JSON.parse(userInfo):{}
-    // })
-
+    const logged = localStorage.getItem("cs554-fp-logged");
+    const userInfo = localStorage.getItem("cs554-fp-user")
     const [authState, setAuthState] = useState({
-        logged:false,
-        user:undefined,
+        logged:logged,
+        user:userInfo?JSON.parse(userInfo):{}
     })
+
+    // const [authState, setAuthState] = useState({
+    //     logged:false,
+    //     user:undefined,
+    // })
 
     const [pending, setPending] = useState(true);
     const setAuth = ({logged,user})=>{
+    localStorage.setItem("cs554-fp-logged",logged);
+    localStorage.setItem("cs554-fp-user",JSON.stringify(user))
     setAuthState({
-        logged:logged,
-        user:user
+        logged,
+        user
         })
     }
 

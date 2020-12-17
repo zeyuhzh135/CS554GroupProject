@@ -19,6 +19,8 @@ const Dashboard = ()=>{
     const handleLogout = async ()=>{
         const loggingout = await axios.get('/users/logout');
         if(loggingout){
+            localStorage.removeItem("cs554-fp-logged");
+            localStorage.removeItem("cs554-fp-user")
             authContext.setAuthState({
                 logged:false,
                 user:{}
