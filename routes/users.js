@@ -146,6 +146,15 @@ router.post('/signin',async(req,res)=>{
         return;
     }
     const comparedHashedPassword = passwordHash.verify(loginfo.password,user.passwordHash);
+    if(!user.active){
+        res.status(200).json({
+            error:true,
+            errors:["Check your email to varify your account"],
+            logged:false,
+            data:null
+        })
+        return;
+    }
     if(comparedHashedPassword){
         req.session.user = {firstName:user.firstName,lastName:user.lastName,userId:user._id};
         // console.log('in user');
@@ -155,7 +164,8 @@ router.post('/signin',async(req,res)=>{
             errors:[],
             logged:true,
             data:user
-        })
+        });
+        return;
     }else{
         res.status(200).json({
             error:true,
