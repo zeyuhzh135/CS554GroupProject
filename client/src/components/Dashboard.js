@@ -18,8 +18,8 @@ const Dashboard = ()=>{
     const handleLogout = async ()=>{
         const loggingout = await axios.get('/users/logout');
         if(loggingout){
-            localStorage.removeItem("cs554-fp-logged");
-            localStorage.removeItem("cs554-fp-user");
+            // localStorage.removeItem("cs554-fp-logged");
+            // localStorage.removeItem("cs554-fp-user");
             authContext.setAuthState({
                 logged:false,
                 user:{}
@@ -41,7 +41,17 @@ const Dashboard = ()=>{
         }
 
     }
+
+    const imageRender = (hasPicture) => {
+        if(hasPicture){
+            return <img src={'/image/get?id='+authUser.id+'&type=user'}/>
+        }else {
+            return <img src={'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'}/>
+        }
+    }
     useEffect( async ()=>{
+        setAuth(false);
+        setAuthUser(undefined);
         const theUser = await axios.get('/users/profile');
         if(theUser.data.logged){
             setAuth(true);
@@ -74,6 +84,8 @@ const Dashboard = ()=>{
                 id:theUser.data.data._id,
                 firstName:theUser.data.data.firstName,
                 lastName:theUser.data.data.lastName,
+                hasPicture:theUser.data.data.hasPicture,
+                active:theUser.data.data.active,
                 classes:theUser.data.data.classes,
                 showClasses:showClasses,
                 scores:theUser.data.data.scores,
@@ -110,6 +122,9 @@ const Dashboard = ()=>{
         return(
             <div>
                 <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
+                <div>
+                  {authUser&&imageRender(authUser.hasPicture)}  
+                </div>
                 <Link to='/profile/edit'>Edit my profile</Link>
                 <div className = 'score-card'>
                     <p>My scores:</p>

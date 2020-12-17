@@ -40,20 +40,14 @@ const EmailVarification = (props)=>{
             let apire = await axios.post('/users/active',{userId:authUser._id});
             if(!apire.data.error){
                 alert("Successfully activate your account");
-                return(
-                   <Redirect to='/login'/> 
-                )
+                props.history.push('/login');
                 
             }else{
-                return(
-                   <Redirect to="/404"/> 
-                )
+                props.history.push('/404');
                 
             }
         }catch(e){
-            return(
-                <Redirect to="/404" />
-            )
+            props.history.push('/404');
             
         }
         
