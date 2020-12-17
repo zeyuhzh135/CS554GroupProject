@@ -42,7 +42,7 @@ const Nav = () => {
                     Chat Room
                 </Link>
                 <Link className='navlink' to='/dashboard'>
-                    My DashBoard
+                    {authUser.firstName} {authUser.lastName}
                 </Link>
             </div>
         )
