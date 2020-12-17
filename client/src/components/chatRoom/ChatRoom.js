@@ -3,10 +3,13 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 import './ChatRoom.css';
 import Message from "./Message";
+import axios from "axios";
+import {Redirect} from "react-router-dom";
 
 let socket;
 
 const ChatRoom = ({location}) => {
+    const [allowed, setAllowed] = useState(true)
     const [roomName, setRoomName] = useState(undefined);
     const [roomId, setRoomId] = useState(undefined);
     const [userName, setUserName] = useState(undefined);
@@ -21,6 +24,23 @@ const ChatRoom = ({location}) => {
         msg: undefined,
         Time: undefined
     };
+
+    useEffect(()=>{
+        async function checkUser() {
+            let apiRes = await axios.get('/users/profile');
+            if (!apiRes.data.error) {
+                const data = queryString.parse(location.search);
+                let roomId = data.roomId;
+                let user = apiRes.data.data;
+                if(!user.classes.includes(roomId)){
+                    setAllowed(false)
+                }
+            }else {
+                setAllowed(false)
+            }
+        }
+        checkUser()
+    },[])
 
     useEffect(() => {
         const data = queryString.parse(location.search);
@@ -76,30 +96,38 @@ const ChatRoom = ({location}) => {
             })
         }
     }
-    return (
-        <div className="outerContainer">
-            <div className="container">
-                <div className="messages">
-                    {messages.map((message, i) => {
-                        return (
-                            <div key={i}>
-                                <Message message={message.msg} name={message.sender} userName={userName}/>
-                            </div>
-                        )
-                    })}
-                    <div ref={messageEndRef}/>
+    if(allowed){
+        return (
+            <div className="outerContainer">
+                <div className="container">
+                    <div className="messages">
+                        {messages.map((message, i) => {
+                            return (
+                                <div key={i}>
+                                    <Message message={message.msg} name={message.sender} userName={userName}/>
+                                </div>
+                            )
+                        })}
+                        <div ref={messageEndRef}/>
+                    </div>
+                    <textarea
+                        className="input"
+                        cols="40"
+                        rows="5"
+                        value={message}
+                        onChange={inputHandler}
+                        onKeyPress={e => e.key === "Enter" ? sendMessage(e) : null}
+                    />
                 </div>
-                <textarea
-                    className="input"
-                    cols="40"
-                    rows="5"
-                    value={message}
-                    onChange={inputHandler}
-                    onKeyPress={e => e.key === "Enter" ? sendMessage(e) : null}
-                />
             </div>
-        </div>
-    )
+        )
+    }else {
+        return <Redirect to="/"/>
+    }
+
+
+
+
 }
 
 export default ChatRoom;
