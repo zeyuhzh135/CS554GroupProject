@@ -15,9 +15,9 @@ const imageMagick = (imagePath, type) => {
     if (type === 'user') {
         let command;
         if(process.platform === "win32"){
-            command = `magick convert ${imagePath} -resize 128x128! ${imagePath}`
+            command = `magick convert "${imagePath}" -resize 128x128! "${imagePath}"`
         }else{
-            command = `magick convert ${imagePath} -resize 128x128//! ${imagePath}`
+            command = `magick convert "${imagePath}" -resize 128x128//! "${imagePath}"`
         }
         exec(command, (error, stdout, stderr) => {
             if (error) {
@@ -33,9 +33,9 @@ const imageMagick = (imagePath, type) => {
     if (type === 'class') {
         let command;
         if(process.platform === "win32"){
-            command = `magick convert ${imagePath} -resize 256x256! ${imagePath}`
+            command = `magick convert "${imagePath}" -resize 256x256! "${imagePath}"`
         }else {
-            command = `magick convert ${imagePath} -resize 256x256//! ${imagePath}`
+            command = `magick convert "${imagePath}" -resize 256x256//! "${imagePath}"`
         }
         exec(command, (error, stdout, stderr) => {
             if (error) {
