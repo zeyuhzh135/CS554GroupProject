@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const image = mongoCollections.image;
 const {exec} = require("child_process");
 const path = require('path')
+const { ObjectId } = require('mongodb');
 // image = {
 //     _id: String,
 //     id(userId or classesId or whatever Id that is used when save to database): String,
@@ -70,6 +71,20 @@ module.exports = {
         const photo = await imageCollection.findOne({ id: id, type:type});
         if (photo === null) throw 'img given id and type do not exist';
         return photo;
+    },
+    async updateImage(_id, id, imagePath, type) {
+        imagePath = path.join(appRoot, imagePath);
+        _id = ObjectId(_id)
+        let imageCollection = await image();
+        let newImage = {
+            id: id,
+            type: type,
+            imagePath: imagePath
+        }
+        let result = await imageCollection.updateOne({_id:_id}, {$set:newImage});
+        if(result.modifiedCount === 0) throw "update failed"
+        imageMagick(imagePath, type)
+        return true;
     },
     async deleteImageByIdAndType(id, type){
         let imageCollection = await image();
