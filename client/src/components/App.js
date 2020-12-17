@@ -14,6 +14,7 @@ import ChatNav from "./chatRoom/ChatNav";
 import ChatRoom from "./chatRoom/ChatRoom";
 import QuizWork from "./QuizWork";
 import NewQuiz from './NewQuiz';
+import EditQuiz from './QuizEdit';
 import EditProfile from './EditProfile';
 import EmailVarification from './EmailVarification';
 
@@ -43,6 +44,7 @@ function App() {
                     <Route path='/dashboard' component={Dashboard}/>
                     <Route exact path='/quiz/:id' component={QuizWork}/>
                     <Route exact path='/newquiz' component={NewQuiz}/>
+                    <Route exact path='/editquiz/:id' component={EditQuiz}/>
                     <Route exact path='/profile/edit' component={EditProfile}/>
                     <Route exact path='/varification/:id' component={EmailVarification}/>
                 </div>
