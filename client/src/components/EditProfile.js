@@ -84,7 +84,6 @@ const EditProfile = () => {
             userUpdatedata.state = state;
         }
         axios.post("/users/update", userUpdatedata)
-
     }
 
     const imageRender = (hasPicture) => {
