@@ -13,13 +13,12 @@ const Dashboard = ()=>{
     const [loading, setLoading] = useState(true);
     const [redirectToSignIn, setRedirectToSignIn] = useState(false);
     const [loggedOut,setLoggedOut] = useState(false);
+    const [imageLoad,setImageLoad] = useState(false);
     let scores;
     let Imteaching;
     const handleLogout = async ()=>{
         const loggingout = await axios.get('/users/logout');
         if(loggingout){
-            // localStorage.removeItem("cs554-fp-logged");
-            // localStorage.removeItem("cs554-fp-user");
             authContext.setAuthState({
                 logged:false,
                 user:{}
@@ -52,6 +51,7 @@ const Dashboard = ()=>{
     useEffect( async ()=>{
         setAuth(false);
         setAuthUser(undefined);
+        setImageLoad(false);
         const theUser = await axios.get('/users/profile');
         if(theUser.data.logged){
             setAuth(true);
@@ -74,7 +74,7 @@ const Dashboard = ()=>{
             for(let s of theUser.data.data.scores){
                 const theS = await axios.get(`/classes/${s.classId}`);
                 showScores.push({
-                    classId:theS.data.data._id,
+                    classId:s.classId,
                     className:theS.data.data.name,
                     score: s.score,
                     scoreboard:s.scoreboard
@@ -119,19 +119,24 @@ const Dashboard = ()=>{
     }else if(auth){
         scores = auth&&authUser.showScores&& buildscores(authUser.showScores);
         Imteaching = auth&&authUser.showClasses&& buildclasses(authUser.showClasses);
+        let imagescr;
+        if(authUser.hasPicture){
+            imagescr = '/image/get?id='+authUser.id+'&type=user'
+        }else{
+            imagescr = 'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'
+        }
         return(
             <div>
                 <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
                 <div>
-                  {authUser&&imageRender(authUser.hasPicture)}  
+                  {/* {authUser&&imageRender(authUser.hasPicture)}   */}
+                  {imageLoad?null:<div style={{background:'red',height:'200',width:'200'}}/>}
+                  <img style = {imageLoad?{}:{display:'loading image'}} src={imagescr} onLoad={()=>setImageLoad(true)}/>
                 </div>
                 <Link to='/profile/edit'>Edit my profile</Link>
                 <div className = 'score-card'>
                     <p>My scores:</p>
-                    <ul>
-                        {scores}
-                    </ul>
-                    
+                    {scores}
                     <form onSubmit={handleEmail}>
                         <input type='submit' value='Send my scores to email'/>
                     </form> 

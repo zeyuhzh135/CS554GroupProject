@@ -6,7 +6,6 @@ import ClassPage from './ClassPage';
 import Login from './Login';
 import Register from './Register';
 import {AuthProvider} from './context/AuthContext';
-import JoinClasses from "./JoinClasses";
 import Dashboard  from "./Dashboard";
 import Nav from './Nav';
 import ChatNav from "./chatRoom/ChatNav";
@@ -17,6 +16,7 @@ import EditQuiz from './QuizEdit';
 import EditProfile from './EditProfile';
 import EmailVarification from './EmailVarification';
 import PrivateRoute from './PrivateRoute';
+import ScoreBoard from './ScoreBoard'
 
 
 function App() {
@@ -45,7 +45,9 @@ function App() {
                     <PrivateRoute exact path='/quiz/:id' component={QuizWork}/>
                     <PrivateRoute exact path='/newquiz' component={NewQuiz}/>
                     <PrivateRoute exact path='/profile/edit' component={EditProfile}/>
+                    <PrivateRoute exact path='editquiz/:id' component={EditQuiz}/>
                     <Route exact path='/varification/:id' component={EmailVarification}/>
+                    <PrivateRoute path='/scoreboard/:quizId' component={ScoreBoard}/>
                 </div>
             </div>   
             </AuthProvider>
