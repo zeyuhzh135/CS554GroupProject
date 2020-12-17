@@ -22,6 +22,7 @@ const ChatRoom = ({location}) => {
         Time: undefined
     };
 
+
     useEffect(() => {
         const data = queryString.parse(location.search);
         socket = io(endPoint);

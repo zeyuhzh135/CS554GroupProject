@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {AuthContext} from './context/AuthContext';
 import './App.css';
 
-const NewQuiz = (props)=>{
+const EditQuiz = (props)=>{
     const [questionList, setQuestionList] = useState([]);
     const [name, setName] = useState('');
     const [questions, setQuestions] = useState(undefined);
@@ -247,4 +247,4 @@ const NewQuiz = (props)=>{
     )
 }
 
-export default NewQuiz;
+export default EditQuiz;

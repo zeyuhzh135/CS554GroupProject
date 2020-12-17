@@ -11,6 +11,7 @@ const QuizWork = (props) => {
     const [count, setCount] = useState(0);
     const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
+    const [authUser,setAuthUser] = useState()
     let questions;
     useEffect(() => {
         async function getTheClass() {
@@ -18,9 +19,17 @@ const QuizWork = (props) => {
                 let apires = await axios.get(`/classes/${props.match.params.id}`);
                 let apires_user = await axios.get(`/users/profile/${apires.data.data.owner}`);
                 let teacher = apires_user.data.data.firstName.concat(" ").concat(apires_user.data.data.lastName);
+                let apires_current = await axios.get(`/users/profile`);
+                setAuthUser(apires_current.data.data);
+                // for(let c of apires_current.classes){
+                //     if(c===props.match.params.id){
+                //         //props.history.push('/');
+                //     }
+                // }
                 setQuize({
                     id: apires.data.data._id,
                     name: apires.data.data.name,
+                    owner:apires.data.data.owner,
                     category: apires.data.data.category,
                     description: apires.data.data.description,
                     teacher: teacher
@@ -31,7 +40,6 @@ const QuizWork = (props) => {
                 console.log(e);
             }
         }
-
         getTheClass();
     }, [props.match.params.id]);
 
@@ -61,6 +69,21 @@ const QuizWork = (props) => {
     const imageRender = (hasPicture, id) => {
         if(hasPicture){
             return <img src={'/image/get?id='+id+'&type=class'}/>
+        }
+    }
+
+    if(authUser&&quiz){
+        if(authUser._id === quiz.owner){
+            return(
+                <Redirect to='/404'/>
+            )
+        }
+        for(let s of authUser.scores){
+            if(s.classId===props.match.params.id){
+                return(
+                    <Redirect to='/404'/>
+                )
+            }
         }
     }
 

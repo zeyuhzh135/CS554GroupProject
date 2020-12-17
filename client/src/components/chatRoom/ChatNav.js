@@ -23,9 +23,9 @@ const ChatNav = () => {
                 setUserName(user.lastName + " " + user.firstName);
                 setClasses(tempClasses);
             }
-            setLoading(false);
         }
         getUserInfo();
+        setLoading(false);
     },[])
 
     if(loading){
@@ -36,7 +36,7 @@ const ChatNav = () => {
     
     if(authContext.authState&&authContext.authState.logged){
         console.log(classes)
-          return (
+        return (
         <div>
             <p>may need click chat room one more time</p>
             <p>{authContext.authState.user.firstName} {authContext.authState.user.lastName}</p>

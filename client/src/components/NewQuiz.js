@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import {AuthContext} from './context/AuthContext';
 import './App.css';
 
-const NewQuiz = () => {
+const NewQuiz = (props) => {
     const [questionList, setQuestionList] = useState([]);
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
@@ -13,6 +13,20 @@ const NewQuiz = () => {
     const [answer, setAnswer] = useState([]);
     const [finished, setFinished] = useState(false);
     const [questionImages, setQuestionImages] = useState(new Map());
+    const [authUser,setAuthUser] = useState(undefined);
+
+    useEffect(()=>{
+        async function getUser(){
+            try{
+                let apires = await axios.get('/users/profile');
+                setAuthUser(apires.data.data);
+            }catch(e){
+                props.history.push('/404');
+            }
+        }
+        getUser();
+
+    },[])
 
     const updateFieldChanged = async (input, value, index) => {
         let newArr = answer;
@@ -149,6 +163,13 @@ const NewQuiz = () => {
         })
         setFinished(true);
     }
+
+    if(authUser&&!authUser.isteacher){
+        return(
+            <Redirect to='/404'/>
+        )
+    }
+
     if(finished) {
         return(<Redirect to="/dashboard" />);
     }

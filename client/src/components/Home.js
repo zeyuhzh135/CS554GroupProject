@@ -38,7 +38,8 @@ const Home = (props) => {
 		try{
 			let apiResponse = await axios.post('/users/joinClass',{classId: classId, userID: theUser._id});
             if(!apiResponse.data.error){
-                alert("join success");
+				alert("join success");
+				props.history.push('/chatRoom');
 			}
         }catch(e){
             console.log(e);
@@ -70,7 +71,7 @@ const Home = (props) => {
 			let startButton = null;
 			if(!joinClass){
 				JoinButton= <Link className='start-quiz' onClick={(e) => handleJoin(e, theClass._id)}>
-					Join Class
+					Join Chat
 				</Link>
 			}
 			if(!startquiz){
