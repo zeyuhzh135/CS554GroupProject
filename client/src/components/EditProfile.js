@@ -3,8 +3,9 @@ import {Redirect} from 'react-router-dom';
 import {AuthContext} from './context/AuthContext';
 import './App.css';
 import axios from 'axios';
+import Dashboard from './Dashboard';
 
-const EditProfile = () => {
+const EditProfile = (props) => {
     const [auth, setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
     const [loading, setLoading] = useState(true);
@@ -83,7 +84,14 @@ const EditProfile = () => {
         if(state){
             userUpdatedata.state = state;
         }
-        axios.post("/users/update", userUpdatedata)
+        try{
+           axios.post("/users/update", userUpdatedata);
+           //alert('You information has been changed');
+        }catch(e){
+            console.log(e);
+        }
+        props.history.push('/dashboard');
+
     }
 
     const imageRender = (hasPicture) => {
@@ -106,15 +114,15 @@ const EditProfile = () => {
                 <input type='file' name='file' placeholder='User Image'
                         onChange={imageHandle}/><br/>
                 <label>First Name</label><br/>
-                <input type='text' name='first_name' placeholder='First Name' value={authUser.firstName}
+                <input type='text' name='first_name' placeholder={authUser.firstName} value={firstName}
                        onChange={firstNameChange}/><br/>
                 <label>Last Name</label><br/>
-                <input type='text' name='last_name' placeholder='Last Name' value={authUser.lastName}
+                <input type='text' name='last_name' placeholder={authUser.lastName} value={lastName}
                        onChange={lastNameChange}/><br/>
                 <label>City</label><br/>
-                <input type='text' name='city' placeholder='City' value={authUser.city} onChange={cityChange}/><br/>
+                <input type='text' name='city' placeholder={authUser.city} value={city} onChange={cityChange}/><br/>
                 <label>State</label><br/>
-                <select name='state' id='state' value={authUser.state} onChange={cityChange}>
+                <select name='state' id='state' value={authUser.state} onChange={stateChange}>
                     <option value="" defaultValue="selected">Select a State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -174,7 +182,7 @@ const EditProfile = () => {
             </div>
 
         )
-    } else {
+    }else {
         return (
             <Redirect to='/login'/>
         )

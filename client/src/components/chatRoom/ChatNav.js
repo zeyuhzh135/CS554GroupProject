@@ -32,11 +32,14 @@ const ChatNav = () => {
         return(
             <p>loading..</p>
         )
-    }else if(authContext.authState&&authContext.authState.logged){
+    }
+    
+    if(authContext.authState&&authContext.authState.logged){
         console.log(classes)
           return (
         <div>
             <p>may need click chat room one more time</p>
+            <p>{authContext.authState.user.firstName} {authContext.authState.user.lastName}</p>
             <ul>
                 {classes&&classes.map((_class) => {
                     return <li key={_class._id}>
@@ -45,7 +48,7 @@ const ChatNav = () => {
                 })}
             </ul>
         </div>
-    );  
+     );
     }else{
         return(
             <Redirect to='/login'/>

@@ -54,7 +54,7 @@ const QuizWork = (props) => {
     if (questionList) {
         let i = 0;
         if (finished) {
-            return (<Redirect to="/dashboard"/>);
+            return (<Redirect to='/dashboard'/>);
         }
         questions = questionList.map((question) => {
             return (

@@ -6,16 +6,17 @@ import ClassPage from './ClassPage';
 import Login from './Login';
 import Register from './Register';
 import {AuthProvider} from './context/AuthContext';
-import chatRoom from "./chatRoom/ChatRoom";
-import JoinClasses from "./JoinClasses";
 import Dashboard  from "./Dashboard";
 import Nav from './Nav';
 import ChatNav from "./chatRoom/ChatNav";
 import ChatRoom from "./chatRoom/ChatRoom";
 import QuizWork from "./QuizWork";
 import NewQuiz from './NewQuiz';
+import EditQuiz from './QuizEdit';
 import EditProfile from './EditProfile';
 import EmailVarification from './EmailVarification';
+import PrivateRoute from './PrivateRoute';
+import ScoreBoard from './ScoreBoard'
 
 
 function App() {
@@ -34,17 +35,19 @@ function App() {
                 <br/>
                 <br/>
                 <div className='App-body'>
-                    <Route exact path='/' render={props=><Home route='/'/>} />
-                    <Route exact path='/Classes' component={ClassPage}/>
+                    <PrivateRoute exact path='/' component={Home} />
+                    <PrivateRoute exact path='/Classes' component={ClassPage}/>
                     <Route exact path='/login' component={Login}/>
                     <Route path='/register' component={Register}/>
-                    <Route path='/chatRoom' component={ChatNav}/>
-                    <Route path='/chat' component={ChatRoom}/>
-                    <Route path='/dashboard' component={Dashboard}/>
-                    <Route exact path='/quiz/:id' component={QuizWork}/>
-                    <Route exact path='/newquiz' component={NewQuiz}/>
-                    <Route exact path='/profile/edit' component={EditProfile}/>
+                    <PrivateRoute path='/chatRoom' component={ChatNav}/>
+                    <PrivateRoute path='/chat' component={ChatRoom}/>
+                    <PrivateRoute path='/dashboard' component={Dashboard}/>
+                    <PrivateRoute exact path='/quiz/:id' component={QuizWork}/>
+                    <PrivateRoute exact path='/newquiz' component={NewQuiz}/>
+                    <PrivateRoute exact path='/profile/edit' component={EditProfile}/>
+                    <PrivateRoute exact path='editquiz/:id' component={EditQuiz}/>
                     <Route exact path='/varification/:id' component={EmailVarification}/>
+                    <PrivateRoute path='/scoreboard/:quizId' component={ScoreBoard}/>
                 </div>
             </div>   
             </AuthProvider>
