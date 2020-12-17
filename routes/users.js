@@ -181,7 +181,6 @@ router.post('/',async(req,res)=>{
     if(newUser.password && newUser.password.length < 8) errors.push('Password should contain at least 8 characters');
     if (!newUser.password_confirm)  errors.push('No password confirmation provided');
     if(newUser.password_confirm !== newUser.password)   errors.push('Passwords don\'t match');
-    if(!newUser.isteacher) errors.push('Declare you a teacher or not');
     if (!newUser.city)  errors.push('No city provided');
     if (!newUser.state) errors.push('No state provided');
     newUser.email = newUser.email.toLowerCase();
@@ -213,8 +212,8 @@ router.post('/',async(req,res)=>{
         var mailOptions = {
             from: "Quiz App <groupprojectcs554fall2020@gmail.com>",
             to:emailTo,
-            subject:'Email varification',
-            text:'Please varify your account at Quiz App',
+            subject:'Email verification',
+            text:'Please verify your account at Quiz App',
             html: htmlstring
         }
         let emailresponse = await transporter.sendMail(mailOptions);

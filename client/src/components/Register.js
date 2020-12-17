@@ -37,7 +37,6 @@ const Register = () => {
         if(!lastName.value) inputErrors.push('Need Last name');
         if(!confirmedPasseord.value) inputErrors.push('Need confirmed password');
         if(confirmedPasseord.value !== password.value) inputErrors.push('password and confirmed password do not match');
-        if(!role.value) inputErrors.push('Need to declare your role of student/teacher');
         if(!city.value) inputErrors.push('Need city');
         if(!state.value) inputErrors.push('Need state');
         if(inputErrors.length>0){
@@ -106,7 +105,7 @@ const Register = () => {
                         <input type = 'password' {...confirmedPasseord} name='confirmed_password' placeholder='Confirmed Password'/><br/>
                         <lable>I am a </lable>
                         <select name='role' {...role} id='role'>
-                        <option value='student' defaultValue="selected">student</option>
+                        <option value="student" defaultValue="student">student</option>
                         <option value='teacher'>teacher</option>
                         </select><br/>
                         <label>City</label><br/>

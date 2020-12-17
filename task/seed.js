@@ -24,6 +24,12 @@ async function main(){
         console.log(e);
     }
 
+    let updateActive = {active:true};
+    await users.updateUser(teacher0._id,updateActive);
+    await users.updateUser(teacher1._id,updateActive);
+    await users.updateUser(student0._id,updateActive);
+    await users.updateUser(student1._id,updateActive);
+    await users.updateUser(student2._id,updateActive);
      let quiz0qustions = [
     {
         question:"Strand of RNA is made of",
