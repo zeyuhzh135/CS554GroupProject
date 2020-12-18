@@ -98,10 +98,10 @@ const Login = () => {
             <h2 className='card-title'>
                 Log In
             </h2>
-            <label>Email</label><br/>
-            <input type='email' {...email} name='email' placeholder='Email'/><br/>
-            <label>Password</label><br/>
-            <input type='password' {...password} name='password' placeholder='Password'/><br/>
+            <label >Email<br/>
+            <input type='email' {...email} name='email' placeholder='Email'/></label><br/>
+            <label>Password<br/>
+            <input type='password' {...password} name='password' placeholder='Password'/></label><br/>
             <br/>
             <input type = 'button' className = 'submit-button' value = 'submit' onClick={handleLogin}/>
         </div>

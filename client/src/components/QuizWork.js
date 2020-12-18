@@ -11,7 +11,7 @@ const QuizWork = (props) => {
     const [count, setCount] = useState(0);
     const [finished, setFinished] = useState(false);
     const [answer, setAnswer] = useState([]);
-    const [authUser,setAuthUser] = useState()
+    const [authUser, setAuthUser] = useState()
     let questions;
     useEffect(() => {
         async function getTheClass() {
@@ -29,7 +29,7 @@ const QuizWork = (props) => {
                 setQuize({
                     id: apires.data.data._id,
                     name: apires.data.data.name,
-                    owner:apires.data.data.owner,
+                    owner: apires.data.data.owner,
                     category: apires.data.data.category,
                     description: apires.data.data.description,
                     teacher: teacher
@@ -40,6 +40,7 @@ const QuizWork = (props) => {
                 console.log(e);
             }
         }
+
         getTheClass();
     }, [props.match.params.id]);
 
@@ -54,12 +55,12 @@ const QuizWork = (props) => {
         //let theUser = await axios.get('/users/profile');
         let x = 0;
         let temp = [];
-        for(let i = 0; i < count; i++) {
-            if(answer[i] === undefined) {
-                temp[x++] = (<p>Choose Answer for Question #{i+1}</p>)
+        for (let i = 0; i < count; i++) {
+            if (answer[i] === undefined) {
+                temp[x++] = (<p>Choose Answer for Question #{i + 1}</p>)
             }
         }
-        if(temp.length == 0) {
+        if (temp.length == 0) {
             let apiResponse = await axios.post('/classes/scores', {answers: answer, classid: quiz.id});
             setFinished(true);
         }
@@ -67,20 +68,20 @@ const QuizWork = (props) => {
     }
 
     const imageRender = (hasPicture, id) => {
-        if(hasPicture){
-            return <img src={'/image/get?id='+id+'&type=class'} alt="question image"/>
+        if (hasPicture) {
+            return <img src={'/image/get?id=' + id + '&type=class'} alt="question image"/>
         }
     }
 
-    if(authUser&&quiz){
-        if(authUser._id === quiz.owner){
-            return(
+    if (authUser && quiz) {
+        if (authUser._id === quiz.owner) {
+            return (
                 <Redirect to='/404'/>
             )
         }
-        for(let s of authUser.scores){
-            if(s.classId===props.match.params.id){
-                return(
+        for (let s of authUser.scores) {
+            if (s.classId === props.match.params.id) {
+                return (
                     <Redirect to='/404'/>
                 )
             }
@@ -98,28 +99,32 @@ const QuizWork = (props) => {
                     {imageRender(question.hasImage, question._id)}
                     <br/>
                     <div className='question-card-area'>
-                    <lable>
-                        Q{++i}: {question.question}
-                    </lable>
-                    <br/>
-                    <lable for="A">
-                    <input type='radio' id="A" value='A' name={question.question}
-                           onClick={updateFieldChanged('A', i - 1)}/>
-                    {question.A}
-                    </lable>
-                    <br/>
-                    <input type='radio' id="B" value='B' name={question.question}
-                           onClick={updateFieldChanged('B', i - 1)}/>
-                    <lable for="B">{question.B}</lable>
-                    <br/>
-                    <input type='radio' id="C" value='C' name={question.question}
-                           onClick={updateFieldChanged('C', i - 1)}/>
-                    <lable for="C">{question.C}</lable>
-                    <br/>
-                    <input type='radio' id="D" value='D' name={question.question}
-                           onClick={updateFieldChanged('D', i - 1)}/>
-                    <lable for="D">{question.D}</lable>
-                    <br/>
+                            Q{++i}: {question.question}
+                        <br/>
+                        <lable>
+                            <input type='radio' value='A' name={question.question}
+                                   onClick={updateFieldChanged('A', i - 1)}/>
+                            {question.A}
+                        </lable>
+                        <br/>
+                        <lable>
+                            <input type='radio' value='B' name={question.question}
+                                   onClick={updateFieldChanged('B', i - 1)}/>
+                            {question.B}
+                        </lable>
+                        <br/>
+                        <lable>
+                            <input type='radio' value='C' name={question.question}
+                                   onClick={updateFieldChanged('C', i - 1)}/>
+                            {question.C}
+                        </lable>
+                        <br/>
+                        <lable>
+                            <input type='radio' value='D' name={question.question}
+                                   onClick={updateFieldChanged('D', i - 1)}/>
+                            {question.D}
+                        </lable>
+                        <br/>
                     </div>
 
                     <br/>

@@ -129,18 +129,18 @@ const EditProfile = (props) => {
         return (
             <div className='edit-profile-card'>
                 {imageRender(authUser.hasPicture)}
-                <label></label><br/>
+                <label><br/>
                 <input type='file' name='file' placeholder='User Image'
-                        onChange={imageHandle}/><br/>
-                <label>First Name</label><br/>
+                        onChange={imageHandle}/></label><br/>
+                <label>First Name<br/>
                 <input type='text' name='first_name' value={firstName}
-                       onChange={firstNameChange}/><br/>
-                <label>Last Name</label><br/>
+                       onChange={firstNameChange}/></label><br/>
+                <label>Last Name<br/>
                 <input type='text' name='last_name' value={lastName}
-                       onChange={lastNameChange}/><br/>
-                <label>City</label><br/>
-                <input type='text' name='city' value={city} onChange={cityChange}/><br/>
-                <label>State</label><br/>
+                       onChange={lastNameChange}/></label><br/>
+                <label>City<br/>
+                <input type='text' name='city' value={city} onChange={cityChange}/></label><br/>
+                <label>State<br/>
                 <select name='state' id='state' value={state} onChange={stateChange}>
                     <option value="" defaultValue="selected">Select a State</option>
                     <option value="AL">Alabama</option>
@@ -194,7 +194,7 @@ const EditProfile = (props) => {
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
-                </select>
+                </select></label>
                 <br/>
                 <input type='button' className='submit-button' value='submit' onClick={handleSubmit}/>
                 <br/>
