@@ -52,7 +52,7 @@ const Home = (props) => {
 					Start quiz
 				</Link>
 			}else{
-				startButton= <Link to={`/scoreboard/${theClass._id}`}>Quiz Score</Link>
+				startButton= <Link className='start-quiz' to={`/scoreboard/${theClass._id}`}>Quiz Score</Link>
 			}
 
 			return(

@@ -132,7 +132,7 @@ const Dashboard = ()=>{
         // }
         return(
             <div>
-                <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
+                <h1>Welcome,{authUser.firstName} {authUser.lastName}</h1>
                 <div>
                   {authUser&&imageRender(authUser.hasPicture)}  
                   {/* {imageLoad?null:<div style={{background:'red',height:'200',width:'200'}}/>}
@@ -151,8 +151,9 @@ const Dashboard = ()=>{
                 <div className = 'score-card'>
                     <p>My scores:</p>
                     {scores}
+                    <br/>
                     <form onSubmit={handleEmail}>
-                        <input type='submit' value='Send my scores to email'/>
+                        <input type='submit' value='Send transcripts to my email'/>
                     </form> 
                     <br/>
                 </div>

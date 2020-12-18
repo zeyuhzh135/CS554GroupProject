@@ -1,7 +1,8 @@
 import React, {useState, useEffect,useContext} from 'react';
 import axios from 'axios';
 import {Link, Redirect} from "react-router-dom";
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext';
+import '../App.css';
 
 const ChatNav = () => {
     const authContext = useContext(AuthContext);
@@ -35,18 +36,21 @@ const ChatNav = () => {
     }
     
     if(authContext.authState&&authContext.authState.logged){
-        console.log(classes)
+        //console.log(classes)
         return (
         <div>
             <p>may need click chat room one more time</p>
-            <p>{authContext.authState.user.firstName} {authContext.authState.user.lastName}</p>
-            <ul>
+            <h1>{authContext.authState.user.firstName} {authContext.authState.user.lastName}</h1>
+            <div className="chatrooms">
+                <ul>
                 {classes&&classes.map((_class) => {
                     return <li key={_class._id}>
                     <Link to={`/chat?roomId=${_class._id}&name=${_class.name}&userName=${userName}`}>{_class.name}</Link>
                     </li>
                 })}
-            </ul>
+            </ul> 
+            </div>
+
         </div>
      );
     }else{

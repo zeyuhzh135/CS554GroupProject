@@ -96,14 +96,19 @@
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	width: 30%;
 	margin: 0 auto 20px;
+	font-size: 20px;
+	font-weight: bold;
 }
 .title {
 	color: #61dafb !important;
 }
 
 .start-quiz {
+	font-size: 20px;
 	padding-left: 8px;
 	padding-right: 8px;
+	margin-bottom: 30px;
+	font-weight: bold;
 }
 
 .register-form-div{
@@ -114,8 +119,28 @@
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	width: 30%;
 	margin: 0 auto 20px;
+	font-size: 20px;
+	font-weight: bold;
 }
 
-#information-card{
-	font-size: 30px;
+.logout-button{
+	font-size:20px;
+	padding: 15px,20px;
+	margin-bottom: 40px;
+}
+
+.chatrooms{
+	font-size:15px;
+}
+
+.quiz-title{
+	font-size: 38px;
+}
+
+.quiz-cate{
+	font-size: 20px;
+}
+
+.quiz-description{
+	margin: 25px;
 }
