@@ -120,7 +120,7 @@ const EditProfile = (props) => {
                 <label>City</label><br/>
                 <input type='text' name='city' placeholder={authUser.city} value={city} onChange={cityChange}/><br/>
                 <label>State</label><br/>
-                <select name='state' id='state' value={authUser.state} onChange={stateChange}>
+                <select name='state' id='state' value={state} onChange={stateChange}>
                     <option value="" defaultValue="selected">Select a State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
