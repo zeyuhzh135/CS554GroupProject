@@ -164,11 +164,11 @@ const NewQuiz = (props) => {
         if(answer.length==0) error.push(<p>At least one question is need for a quiz</p>);
         for(let i=0;i<answer.length;i++){
             if(!answer[i].A||!answer[i].B||!answer[i].C||!answer[i].D||!answer[i].question||!answer[i].correctAns){
-                error.push(<p>Need to fill all fields in question {i}</p>);
+                error.push(<p>Need to fill all fields in question #{i+1}</p>);
             }
             if(answer[i].correctAns){
                 if(answer[i].correctAns != "A" && answer[i].correctAns !="B"&& answer[i].correctAns != "C" && answer[i].correctAns !="D"){
-                    error.push(<p>The anwers are only allowed as A, B, C, D in question {i}</p>);
+                    error.push(<p>The anwers are only allowed as A, B, C, D in question #{i+1}</p>);
                 }
             }
         }
