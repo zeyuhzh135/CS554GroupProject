@@ -25,7 +25,7 @@ const EmailVarification = (props)=>{
         }
        varifyurl();
         setLoading(false);
-    },[]);
+    },[props.match.params.id]);
 
     const handleActive=async (e)=>{
         e.preventDefault();

@@ -6,14 +6,12 @@ import { AuthContext } from './context/AuthContext';
 
 const Nav = () => {
     const authContext = useContext(AuthContext);
-    const [auth,setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
     useEffect(()=>{
         const getUser = async ()=>{
             let theUser;
             try{
                 theUser = await axios.get('/users/profile');
-                if(theUser.data.logged) setAuth(true);
                 if(theUser.data.logged && theUser.data.data){
                     setAuthUser({
                         id:theUser.data.data._id,
