@@ -84,7 +84,13 @@ const NewQuiz = (props) => {
                     <br/>
                     <label class="editQuizLabel">
                         Answer: 
-                        < input type="text" name="Answer" onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                        <select onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}>
+                            <option value=""></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </label>
                     <br/>
                 </div>
@@ -132,7 +138,13 @@ const NewQuiz = (props) => {
                     <br/>
                     <label class="editQuizLabel">
                         Answer: 
-                        <input type="text" name="Answer"  onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                        <select onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}>
+                            <option value=""></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </label>
                     <br/>
                 </div>
