@@ -1,0 +1,10 @@
+{
+    "mongoConfig": {
+      "serverUrl": "mongodb://localhost:27017/",
+      "database": "CS554-group-project"
+    },
+    "redisConfig": {
+      "port":6379,
+      "url": "127.0.0.1"
+    }
+  }
