@@ -98,11 +98,11 @@ const QuizWork = (props) => {
                     {imageRender(question.hasImage, question._id)}
                     <br/>
                     <div className='question-card-area'>
-                    <lable>
+                    <lable id ="Label-question">
                         Q{++i}: {question.question}
                     </lable>
                     <br/>
-                    <lable for="A">
+                    <lable for="A" id ="Label-A">
                     <input type='radio' id="A" value='A' name={question.question}
                            onClick={updateFieldChanged('A', i - 1)}/>
                     {question.A}
@@ -110,15 +110,15 @@ const QuizWork = (props) => {
                     <br/>
                     <input type='radio' id="B" value='B' name={question.question}
                            onClick={updateFieldChanged('B', i - 1)}/>
-                    <lable for="B">{question.B}</lable>
+                    <lable for="B" id ="Label-B">{question.B}</lable>
                     <br/>
                     <input type='radio' id="C" value='C' name={question.question}
                            onClick={updateFieldChanged('C', i - 1)}/>
-                    <lable for="C">{question.C}</lable>
+                    <lable for="C" id ="Label-C">{question.C}</lable>
                     <br/>
                     <input type='radio' id="D" value='D' name={question.question}
                            onClick={updateFieldChanged('D', i - 1)}/>
-                    <lable for="D">{question.D}</lable>
+                    <lable for="D" id ="Label-D">{question.D}</lable>
                     <br/>
                     </div>
 
