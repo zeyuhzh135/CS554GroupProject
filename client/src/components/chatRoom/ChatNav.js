@@ -10,26 +10,31 @@ const ChatNav = () => {
     const [loading, setLoading] = useState(true);
     const [userName, setUserName] = useState(undefined);
     useEffect(() => {
+        setLoading(true)
         async function getUserInfo() {
             let apiRes = await axios.get('/users/profile');
             if (!apiRes.data.error) {
                 let user = apiRes.data.data;
                 let tempClasses = [];
-                user.classes.map(async (classId) => {
+                await Promise.all(user.classes.map(async (classId) => {
                     let Res = await axios.get(`/classes/${classId}`);
                     let _class = Res.data.data;
                     //console.log(_class);
                     tempClasses.push(_class);
-                })
+                }))
                 setUserName(user.lastName + " " + user.firstName);
-                setClasses(tempClasses);
+                setClasses(tempClasses)
             }
         }
         getUserInfo();
-        setLoading(false);
     },[])
 
-    if(loading){
+    useEffect(()=>{
+        if(classes!==undefined)
+            setLoading(false);
+    },[classes])
+
+    if(classes===undefined){
         return(
             <p>loading..</p>
         )
