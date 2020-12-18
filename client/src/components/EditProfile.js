@@ -79,17 +79,14 @@ const EditProfile = (props) => {
                 }catch (e){
                     alert("image upload failed")
                 }
-
             }else {
                 try {
                     axios.post("/image/update",formdata).then(()=>{
                         alert("image process success")
-
                         window.location.reload(true);
                     })
                 }catch (e){
                     alert("image upload failed")
-
                 }
             }
         }
@@ -112,7 +109,7 @@ const EditProfile = (props) => {
         }catch(e){
             console.log(e);
         }
-        // props.history.push('/dashboard');
+        props.history.push('/dashboard');
 
     }
 
