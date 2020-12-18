@@ -94,9 +94,9 @@ const EditProfile = (props) => {
 
     const imageRender = (hasPicture) => {
         if(hasPicture){
-            return <img src={'/image/get?id='+authUser._id+'&type=user'}/>
+            return <img src={'/image/get?id='+authUser._id+'&type=user'} alt="user image"/>
         }else {
-            return <img src={'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'}/>
+            return <img src={'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'} alt="user image"/>
         }
     }
 

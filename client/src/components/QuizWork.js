@@ -68,7 +68,7 @@ const QuizWork = (props) => {
 
     const imageRender = (hasPicture, id) => {
         if(hasPicture){
-            return <img src={'/image/get?id='+id+'&type=class'}/>
+            return <img src={'/image/get?id='+id+'&type=class'} alt="question image"/>
         }
     }
 
