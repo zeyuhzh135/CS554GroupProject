@@ -14,6 +14,7 @@ const NewQuiz = (props) => {
     const [finished, setFinished] = useState(false);
     const [questionImages, setQuestionImages] = useState(new Map());
     const [authUser,setAuthUser] = useState(undefined);
+    const [newquizerrors,setNewQuizErrors] = useState(undefined);
 
     useEffect(()=>{
         async function getUser(){
@@ -83,7 +84,7 @@ const NewQuiz = (props) => {
                     <br/>
                     <label class="editQuizLabel">
                         Answer: 
-                        <input type="text" name="Answer"  onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                        < input type="text" name="Answer" onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
                     </label>
                     <br/>
                 </div>
@@ -136,6 +137,9 @@ const NewQuiz = (props) => {
                     <br/>
                 </div>
             );
+            let newquestions = answer;
+            newquestions.pop();
+            setAnswer(newquestions);
         }
         if(count > 0) {
             setCount(count-1);
@@ -153,15 +157,34 @@ const NewQuiz = (props) => {
 
     const onSubmitValue= async (e)=>{
         e.preventDefault();
-        let theUser = await axios.get('/users/profile');
-        let newclass = await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
-        let questions = newclass.data.data.questions
-        questions.map((question,index)=>{
-            if(question.hasImage===true){
-                sendImageIfItHave(question._id,questionImages.get(index))
+        let error = [];
+        if(!category) error.push(<p>Need category</p>);
+        if(!name) error.push(<p>Need name</p>);
+        if(!description) error.push(<p>Need description</p>);
+        if(answer.length==0) error.push(<p>At least one question is need for a quiz</p>);
+        for(let i=0;i<answer.length;i++){
+            if(!answer[i].A||!answer[i].B||!answer[i].C||!answer[i].D||!answer[i].question||!answer[i].correctAns){
+                error.push(<p>Need to fill all fields in question {i}</p>);
             }
-        })
-        setFinished(true);
+            if(answer[i].correctAns){
+                if(answer[i].correctAns != "A" && answer[i].correctAns !="B"&& answer[i].correctAns != "C" && answer[i].correctAns !="D"){
+                    error.push(<p>The anwers are only allowed as A, B, C, D in question {i}</p>);
+                }
+            }
+        }
+        console.log(answer);
+        if(error.length==0){
+            let theUser = await axios.get('/users/profile');
+            let newclass = await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
+            let questions = newclass.data.data.questions
+            questions.map((question,index)=>{
+                if(question.hasImage===true){
+                    sendImageIfItHave(question._id,questionImages.get(index))
+                }
+            })
+            setFinished(true);
+        }
+        setNewQuizErrors(error)
     }
 
     if(authUser&&!authUser.isteacher){
@@ -202,6 +225,7 @@ const NewQuiz = (props) => {
                 </button>
                 <br/>    
                 <br/>
+                {newquizerrors}
                 <button className="submit-button" type="submit" onClick={onSubmitValue}>
                     Submit
                 </button>

@@ -1,9 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Redirect} from 'react-router-dom';
-import {AuthContext} from './context/AuthContext';
 import './App.css';
 import axios from 'axios';
-import Dashboard from './Dashboard';
 
 const EditProfile = (props) => {
     const [auth, setAuth] = useState(false);

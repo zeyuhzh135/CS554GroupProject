@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {AuthContext} from './context/AuthContext';
 import './App.css';
 
-const EditQuiz = (props)=>{
+const NewQuiz = (props)=>{
     const [questionList, setQuestionList] = useState([]);
     const [name, setName] = useState('');
     const [questions, setQuestions] = useState(undefined);
@@ -212,6 +212,7 @@ const EditQuiz = (props)=>{
 
     return(
         <div className="new-quiz">
+            <p>123</p>
             <form className='new-quiz-form'>
                 <h1>Create Your Quiz</h1>
                 <label class="editQuizLabel">
@@ -247,4 +248,4 @@ const EditQuiz = (props)=>{
     )
 }
 
-export default EditQuiz;
+export default NewQuiz;
