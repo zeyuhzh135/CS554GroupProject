@@ -48,10 +48,24 @@ const ChatNav = () => {
             <div className="chatrooms">
                 <ul>
                 {classes&&classes.map((_class) => {
-                    return <li key={_class._id}>
-                    <Link to={`/chat?roomId=${_class._id}&name=${_class.name}&userName=${userName}`}>{_class.name}</Link>
-                    </li>
-                })}
+                    return (
+                    <div className = 'quiz-card'>
+                        <li key={_class._id}>
+                            <h2 className='quiz-title' key = {_class.name}>
+                                {_class.name}
+                            </h2>
+                            <p className='quiz-cate' key= {_class.category}>
+                                Category:
+                                {_class.category}
+                            </p>
+                            <p className='quiz-description' key={_class.description}>
+                                Description:
+                                {_class.description}
+                            </p>
+                            <Link className='start-quiz' to={`/chat?roomId=${_class._id}&name=${_class.name}&userName=${userName}`}>Join Chatroom</Link>
+                        </li>
+                    </div>
+                );})}
             </ul> 
             </div>
 

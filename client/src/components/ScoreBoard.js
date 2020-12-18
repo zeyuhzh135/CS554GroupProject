@@ -72,14 +72,14 @@ const ScoreBoard = (props)=>{
                     <br/>
                     <p>A: {question.A}</p>
                     <br/>
-                    <p>B:{question.B}</p>
+                    <p>B: {question.B}</p>
                     <br/>
-                    <p>C:{question.C}</p>
+                    <p>C: {question.C}</p>
                     <br/>
-                    <p>D:{question.D}</p>
+                    <p>D: {question.D}</p>
                     <br/>
                     <p>Correct Answer: {question.correctAns}</p>
-                    <p>You Answer:{question.studentAns}</p>
+                    <p>You Answer: {question.studentAns}</p>
                 </div>
             )
         })
