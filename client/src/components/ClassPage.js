@@ -6,13 +6,11 @@ import { AuthContext } from './context/AuthContext';
 
 const Home = (props) => {
 	const authContext = useContext(AuthContext);
-	const [loading, setLoading] = useState(false);
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);
 	let classes;
 	let newQuiz;
 	useEffect( ()=>{
-		setLoading(true);
 		async function getclasses(){
 			try{
 				let apires = await axios.get('/classes');
@@ -36,15 +34,31 @@ const Home = (props) => {
 	const buildButton = (theClass) =>{
 		if(authContext.authState&&authContext.authState.logged&&theUser&&theUser._id===theClass.owner){
 			return(
-				<Link className='edit-quiz'>
-					Edit quiz
-				</Link>	
+				<p> I am the teacher of this quiz</p>
+	
 			)
 		}else if(authContext.authState&&authContext.authState.logged&&theUser){
-			return(
-				<Link className='start-quiz' to={`/quiz/${theClass._id}`}>
+			let startquiz = false;
+			for(let s of theUser.scores){
+				console.log(s);
+				if(s.classId===theClass._id){
+					startquiz = true;
+				}
+				break;
+			}
+			let startButton = null;
+			if(!startquiz){
+				startButton = <Link className='start-quiz' to={`/quiz/${theClass._id}`}>
 					Start quiz
 				</Link>
+			}else{
+				startButton= <Link to={`/scoreboard/${theClass._id}`}>Quiz Score</Link>
+			}
+
+			return(
+				<div>
+					{startButton}
+				</div>
 			)
 		}else{
 			return null;

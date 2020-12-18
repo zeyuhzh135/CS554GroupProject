@@ -20,7 +20,7 @@ const Dashboard = ()=>{
         const loggingout = await axios.get('/users/logout');
         if(loggingout){
             localStorage.removeItem("cs554-fp-logged");
-            localStorage.removeItem("cs554-fp-user")
+            localStorage.removeItem("cs554-fp-logged");
             authContext.setAuthState({
                 logged:false,
                 user:{}
@@ -86,6 +86,9 @@ const Dashboard = ()=>{
                 id:theUser.data.data._id,
                 firstName:theUser.data.data.firstName,
                 lastName:theUser.data.data.lastName,
+                city:theUser.data.data.city,
+                email:theUser.data.data.email,
+                state:theUser.data.data.state,
                 hasPicture:theUser.data.data.hasPicture,
                 active:theUser.data.data.active,
                 classes:theUser.data.data.classes,
@@ -121,21 +124,30 @@ const Dashboard = ()=>{
     }else if(auth){
         scores = auth&&authUser.showScores&& buildscores(authUser.showScores);
         Imteaching = auth&&authUser.showClasses&& buildclasses(authUser.showClasses);
-        let imagescr;
-        if(authUser.hasPicture){
-            imagescr = '/image/get?id='+authUser.id+'&type=user'
-        }else{
-            imagescr = 'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'
-        }
+        // let imagescr;
+        // if(authUser.hasPicture){
+        //     imagescr = '/image/get?id='+authUser.id+'&type=user'
+        // }else{
+        //     imagescr = 'https://image.shutterstock.com/image-vector/user-icon-trendy-flat-style-600w-418179865.jpg'
+        // }
         return(
             <div>
                 <p>Welcome,{authUser.firstName} {authUser.lastName}</p>
                 <div>
-                  {/* {authUser&&imageRender(authUser.hasPicture)}   */}
-                  {imageLoad?null:<div style={{background:'red',height:'200',width:'200'}}/>}
-                  <img style = {imageLoad?{}:{display:'loading image'}} src={imagescr} onLoad={()=>setImageLoad(true)}/>
+                  {authUser&&imageRender(authUser.hasPicture)}  
+                  {/* {imageLoad?null:<div style={{background:'red',height:'200',width:'200'}}/>}
+                  <img style = {imageLoad?{}:{display:'loading image'}} src={imagescr} onLoad={()=>setImageLoad(true)}/> */}
                 </div>
-                <Link to='/profile/edit'>Edit my profile</Link>
+                <div className='information-card'>
+                    <div className='information-card-body'>
+                        <p>{authUser.firstName} {authUser.lastName}</p>
+                        <p>{authUser.email}</p>
+                        <p>{authUser.city}</p>
+                        <p>{authUser.state}</p> 
+                    </div>
+                   <Link to='/profile/edit'>Edit my profile</Link> 
+                </div>
+                
                 <div className = 'score-card'>
                     <p>My scores:</p>
                     {scores}
@@ -144,10 +156,16 @@ const Dashboard = ()=>{
                     </form> 
                     <br/>
                 </div>
-
-                <p>I am teaching:</p>
-                {Imteaching}
-                <input type='button' className='logout-button' value='Log out' onClick={handleLogout}/>
+                
+                <div className='score-card'>
+                    <p>I am teaching:</p>
+                    {Imteaching}
+                    <br/>
+                </div>
+                  <div>
+                     <input type='button' className='logout-button' value='Log out' onClick={handleLogout}/> 
+                  </div>
+                
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './Home';
 import ClassPage from './ClassPage';
@@ -12,7 +12,7 @@ import ChatNav from "./chatRoom/ChatNav";
 import ChatRoom from "./chatRoom/ChatRoom";
 import QuizWork from "./QuizWork";
 import NewQuiz from './NewQuiz';
-import EditQuiz from './QuizEdit';
+// import EditQuiz from './QuizEdit';
 import EditProfile from './EditProfile';
 import EmailVarification from './EmailVarification';
 import PrivateRoute from './PrivateRoute';
@@ -45,7 +45,6 @@ function App() {
                     <PrivateRoute exact path='/quiz/:id' component={QuizWork}/>
                     <PrivateRoute exact path='/newquiz' component={NewQuiz}/>
                     <PrivateRoute exact path='/profile/edit' component={EditProfile}/>
-                    <PrivateRoute exact path='editquiz/:id' component={EditQuiz}/>
                     <Route exact path='/varification/:id' component={EmailVarification}/>
                     <PrivateRoute path='/scoreboard/:quizId' component={ScoreBoard}/>
                 </div>
@@ -54,17 +53,6 @@ function App() {
  
         </Router>
 
-        // [<Switch>
-        //     < Route component = {Nav}/>
-        // </Switch>,
-        // <Switch>
-        //     <Route exact path='/' component={Home}/>
-        //     <Route exact path='/login' component={Login}/>
-        //     <Route path='/register' component={Register}/>
-        //     <Route path='/chatRoom' render={chatRoom}/>
-        //     <Route path='/dashboard' component={Dashboard}/>
-        // </Switch>
-        // ]
 
     );
 }

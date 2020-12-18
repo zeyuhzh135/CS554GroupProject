@@ -49,9 +49,7 @@ const Home = (props) => {
 	const buildButton = (theClass) =>{
 		if(authContext.authState&&authContext.authState.logged&&theUser&&theUser._id===theClass.owner){
 			return(
-				<Link className='edit-quiz' to={`/editquiz/${theClass._id}`}>
-					Edit quiz
-				</Link>
+				<p> I am the teacher of this quiz</p>
 	
 			)
 		}else if(authContext.authState&&authContext.authState.logged&&theUser){

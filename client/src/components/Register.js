@@ -73,7 +73,7 @@ const Register = () => {
     }
     const buildError = (e)=>{
         return(
-            <li>{e}</li>
+            <li key={e}>{e}</li>
         )
     }
     errorArea = error&&errors&&errors.map((e)=>{
@@ -92,7 +92,7 @@ const Register = () => {
                     <h2 className='card-title'>
                         Register
                     </h2>
-                    <div>
+                    <div className="register-form-div">
                         <label>First Name</label><br/>
                         <input type = 'text' {...firstName} name='first_name' placeholder='First Name'/><br/>
                         <label>Last Name</label><br/>
@@ -103,11 +103,13 @@ const Register = () => {
                         <input type = 'password' {...password} name='password' placeholder='Password'/><br/>
                         <label>Confirmed Password</label><br/>
                         <input type = 'password' {...confirmedPasseord} name='confirmed_password' placeholder='Confirmed Password'/><br/>
+                        <br/>
                         <lable>I am a </lable>
                         <select name='role' {...role} id='role'>
                         <option value="student" defaultValue="student">student</option>
                         <option value='teacher'>teacher</option>
                         </select><br/>
+                        <br/>
                         <label>City</label><br/>
                         <input type = 'text' {...city} name='city' placeholder='City'/><br/>
                         <label>State</label><br/>

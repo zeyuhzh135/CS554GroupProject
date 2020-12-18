@@ -55,7 +55,7 @@ const EmailVarification = (props)=>{
 
     if(!authUser){
         return(
-            <p>User not exist</p>
+            <p>Page not exist</p>
         )
     }else{
         return(
