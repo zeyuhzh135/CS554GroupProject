@@ -122,10 +122,10 @@ const QuizWork = (props) => {
         })
         return (
             <div>
-                <p>{quiz.name}</p>
-                <p>{quiz.category}</p>
-                <p>{quiz.description}</p>
-                <p>{quiz.teacher}</p>
+                <h1>{quiz.name}</h1>
+                <p className='quiz-cate'>Category: {quiz.category}</p>
+                <p className='quiz-description'>{quiz.description}</p>
+                <p>Teacher: {quiz.teacher}</p>
                 <form onSubmit={onSubmitValue}>
                     {questions}
                     {unanswered}
