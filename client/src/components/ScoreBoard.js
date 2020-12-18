@@ -38,7 +38,7 @@ const ScoreBoard = (props)=>{
 
     const imageRender = (hasPicture, id) => {
         if(hasPicture){
-            return <img src={'/image/get?id='+id+'&type=class'}/>
+            return <img src={'/image/get?id='+id+'&type=class'} alt="question image"/>
         }
     }
 
@@ -66,7 +66,7 @@ const ScoreBoard = (props)=>{
         display = allquestions.map((question)=>{
             return(
                 <div className='question-card' key={question.question}>
-                    {imageRender(question.hasImage, question._id)}
+                    {imageRender(question.hasImage, question.questionId)}
                     <br/>
                     <p> {question.question}</p>
                     <br/>
