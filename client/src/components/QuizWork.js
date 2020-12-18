@@ -102,21 +102,23 @@ const QuizWork = (props) => {
                         Q{++i}: {question.question}
                     </lable>
                     <br/>
+                    <lable for="A">
                     <input type='radio' id="A" value='A' name={question.question}
                            onClick={updateFieldChanged('A', i - 1)}/>
-                    <lable>{question.A}</lable>
+                    {question.A}
+                    </lable>
                     <br/>
                     <input type='radio' id="B" value='B' name={question.question}
                            onClick={updateFieldChanged('B', i - 1)}/>
-                    <lable>{question.B}</lable>
+                    <lable for="B">{question.B}</lable>
                     <br/>
                     <input type='radio' id="C" value='C' name={question.question}
                            onClick={updateFieldChanged('C', i - 1)}/>
-                    <lable>{question.C}</lable>
+                    <lable for="C">{question.C}</lable>
                     <br/>
                     <input type='radio' id="D" value='D' name={question.question}
                            onClick={updateFieldChanged('D', i - 1)}/>
-                    <lable>{question.D}</lable>
+                    <lable for="D">{question.D}</lable>
                     <br/>
                     </div>
 
