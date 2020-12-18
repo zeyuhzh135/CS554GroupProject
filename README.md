@@ -12,3 +12,4 @@
 ### 1. start redis server at port 6379(default)
 ### 2. run npm start at root folder
 ### 3. run npm start at client folder
+### 4. run seed in task folder
