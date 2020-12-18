@@ -44,7 +44,6 @@ const ChatNav = () => {
         //console.log(classes)
         return (
         <div>
-            <p>may need click chat room one more time</p>
             <h1>{authContext.authState.user.firstName} {authContext.authState.user.lastName}</h1>
             <div className="chatrooms">
                 <ul>
