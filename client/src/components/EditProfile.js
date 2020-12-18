@@ -109,7 +109,7 @@ const EditProfile = (props) => {
         }catch(e){
             console.log(e);
         }
-        // props.history.push('/dashboard');
+        props.history.push('/dashboard');
 
     }
 
