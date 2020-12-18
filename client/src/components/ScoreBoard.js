@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import {AuthContext} from './context/AuthContext';
 import './App.css';
 import Axios from 'axios';
 
@@ -93,8 +91,11 @@ const ScoreBoard = (props)=>{
     }
     return(
         <div>
-            <p>ScoreBoard</p>
-            <p>{score}</p>
+            <div className='scoreboard'>
+                <p>ScoreBoard</p>
+                <p>{score}</p>
+            </div>
+
             {display}
         </div>
 
