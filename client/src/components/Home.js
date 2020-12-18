@@ -101,11 +101,11 @@ const Home = (props) => {
 						{theClass.name}
 					</h2>
 					<p className='quiz-cate' key= {theClass.category}>
-						Category:
+						Category: 
 						{theClass.category}
 					</p>
 					<p className='quiz-description' key={theClass.description}>
-						Description:
+						Description: 
 						{theClass.description}
 					</p>
 					<br/>
