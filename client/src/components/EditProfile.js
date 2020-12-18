@@ -33,7 +33,6 @@ const EditProfile = (props) => {
     const imageHandle = async (e) => {
         e.preventDefault();
         await setUploadImage(e.target.files[0]);
-        alert("image upload success")
     }
 
     const firstNameChange = (e) => {
@@ -64,9 +63,25 @@ const EditProfile = (props) => {
             formdata.append("type","user")
             if(userUpdatedata.hasPicture===false){
                 userUpdatedata.hasPicture = true
-                axios.post("/image/upload",formdata)
+                try{
+                    axios.post("/image/upload",formdata)
+                }catch (e){
+                    alert("image upload failed")
+                }finally {
+                    alert("image process success")
+                    window.location.reload(true);
+                }
+
             }else {
-                axios.post("/image/update",formdata)
+                try {
+                    axios.post("/image/update",formdata)
+                }catch (e){
+                    alert("image upload failed")
+                }finally {
+                    alert("image process success")
+                    window.location.reload(true);
+                }
+
             }
         }
 

@@ -11,7 +11,7 @@ const { ObjectId } = require('mongodb');
 // }
 
 
-const imageMagick = (imagePath, type) => {
+const imageMagick = async (imagePath, type) => {
 
     if (type === 'user') {
         let command;
@@ -20,7 +20,7 @@ const imageMagick = (imagePath, type) => {
         }else{
             command = `magick convert "${imagePath}" -resize 128x128//! "${imagePath}"`
         }
-        exec(command, (error, stdout, stderr) => {
+        await exec(command, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
@@ -38,7 +38,7 @@ const imageMagick = (imagePath, type) => {
         }else {
             command = `magick convert "${imagePath}" -resize 256x256//! "${imagePath}"`
         }
-        exec(command, (error, stdout, stderr) => {
+        await exec(command, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
@@ -63,7 +63,7 @@ module.exports = {
         }
         const insertInfo = await imageCollection.insertOne(newImage);
         if (insertInfo.insertedCount === 0) throw 'Can not add img';
-        imageMagick(imagePath, type)
+        await imageMagick(imagePath, type)
         return true;
     },
     async getImageByIdAndType(id, type){
@@ -83,7 +83,7 @@ module.exports = {
         }
         let result = await imageCollection.updateOne({_id:_id}, {$set:newImage});
         if(result.modifiedCount === 0) throw "update failed"
-        imageMagick(imagePath, type)
+        await imageMagick(imagePath, type)
         return true;
     },
     async deleteImageByIdAndType(id, type){
