@@ -31,12 +31,16 @@ const EditProfile = (props) => {
             setLoading(false);
         }
         getUser()
-
+        return ()=>{
+            setAuth(false);
+            setAuthUser(undefined);
+        }
     }, [])
 
     const imageHandle = async (e) => {
         e.preventDefault();
         await setUploadImage(e.target.files[0]);
+        alert("image finish loading")
     }
 
     const firstNameChange = (e) => {
@@ -68,24 +72,23 @@ const EditProfile = (props) => {
             if(userUpdatedata.hasPicture===false){
                 userUpdatedata.hasPicture = true
                 try{
-                    axios.post("/image/upload",formdata)
+                    axios.post("/image/upload",formdata).then(()=>{
+                        alert("image process success")
+                        window.location.reload(true);
+                    })
                 }catch (e){
                     alert("image upload failed")
-                }finally {
-                    alert("image process success")
-                    window.location.reload(true);
                 }
 
             }else {
                 try {
-                    axios.post("/image/update",formdata)
+                    axios.post("/image/update",formdata).then(()=>{
+                        alert("image process success")
+                        window.location.reload(true);
+                    })
                 }catch (e){
                     alert("image upload failed")
-                }finally {
-                    alert("image process success")
-                    window.location.reload(true);
                 }
-
             }
         }
 
@@ -107,7 +110,7 @@ const EditProfile = (props) => {
         }catch(e){
             console.log(e);
         }
-        props.history.push('/dashboard');
+        // props.history.push('/dashboard');
 
     }
 
