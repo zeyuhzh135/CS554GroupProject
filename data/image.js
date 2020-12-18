@@ -1,10 +1,8 @@
 const mongoCollections = require('../config/mongoCollections');
 const image = mongoCollections.image;
-const {exec} = require("child_process");
+const {exec} = require("promisify-child-process");
 const path = require('path')
 const { ObjectId } = require('mongodb');
-const util = require('util')
-const execPromise = util.promisify(exec)
 // image = {
 //     _id: String,
 //     id(userId or classesId or whatever Id that is used when save to database): String,
@@ -22,16 +20,7 @@ const imageMagick = async (imagePath, type) => {
         }else{
             command = `magick convert "${imagePath}" -resize 128x128//! "${imagePath}"`
         }
-        await execPromise(command, (error, stdout, stderr) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-        })
+        await exec(command)
     }
     if (type === 'class') {
         let command;
@@ -40,17 +29,7 @@ const imageMagick = async (imagePath, type) => {
         }else {
             command = `magick convert "${imagePath}" -resize 256x256//! "${imagePath}"`
         }
-        await execPromise(command, (error, stdout, stderr) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.log(`stderr: ${stderr}`);
-                return;
-            }
-            return Promise
-        })
+        await exec(command)
     }
 
 }

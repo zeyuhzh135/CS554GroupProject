@@ -84,10 +84,12 @@ const EditProfile = (props) => {
                 try {
                     axios.post("/image/update",formdata).then(()=>{
                         alert("image process success")
+
                         window.location.reload(true);
                     })
                 }catch (e){
                     alert("image upload failed")
+
                 }
             }
         }

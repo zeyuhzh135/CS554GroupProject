@@ -83,7 +83,7 @@ router.post("/update", async (req, res) => {
                 let image = await imageData.getImageByIdAndType(req.body.id, req.body.type);
                 await imageData.updateImage(image._id, req.body.id, req.file.path, req.body.type);
                 let imagePath = image.imagePath;
-                await fs.unlinkSync(imagePath);
+                fs.unlinkSync(imagePath);
                 // await imageData.deleteImageByIdAndType(req.body.id, req.body.type);
                 // await imageData.addImage(req.body.id, req.file.path, req.body.type)
                 res.status(200).json({
