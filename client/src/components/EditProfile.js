@@ -19,6 +19,10 @@ const EditProfile = (props) => {
                 const theUser = await axios.get('/users/profile');
                 setAuth(true)
                 setAuthUser(theUser.data.data);
+                setFirstName(theUser.data.data.firstName);
+                setLastName(theUser.data.data.lastName);
+                setCity(theUser.data.data.city);
+                setState(theUser.data.data.state);
 
             } catch (e) {
                 setAuth(false);
@@ -127,15 +131,15 @@ const EditProfile = (props) => {
                 <input type='file' name='file' placeholder='User Image'
                         onChange={imageHandle}/><br/>
                 <label>First Name</label><br/>
-                <input type='text' name='first_name' placeholder={authUser.firstName} value={firstName}
+                <input type='text' name='first_name' value={firstName}
                        onChange={firstNameChange}/><br/>
                 <label>Last Name</label><br/>
-                <input type='text' name='last_name' placeholder={authUser.lastName} value={lastName}
+                <input type='text' name='last_name' value={lastName}
                        onChange={lastNameChange}/><br/>
                 <label>City</label><br/>
-                <input type='text' name='city' placeholder={authUser.city} value={city} onChange={cityChange}/><br/>
+                <input type='text' name='city' value={city} onChange={cityChange}/><br/>
                 <label>State</label><br/>
-                <select name='state' id='state' value={authUser.state} onChange={stateChange}>
+                <select name='state' id='state' value={state} onChange={stateChange}>
                     <option value="" defaultValue="selected">Select a State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
