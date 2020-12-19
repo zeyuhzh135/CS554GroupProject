@@ -168,9 +168,9 @@
 	margin: 20px;
 }
 
-.option{
-	color:red;
-	background-color:black;
+select{
+	color:black;
+	font-size: bold;
 }
 
 ul {

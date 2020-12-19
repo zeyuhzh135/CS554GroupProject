@@ -142,7 +142,6 @@ const EditProfile = (props) => {
                 <input type='text' name='city' value={city} onChange={cityChange}/></label><br/>
                 <label>State<br/>
                 <select name='state' id='state' value={state} onChange={stateChange}>
-                    <option value="" defaultValue="selected">Select a State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
