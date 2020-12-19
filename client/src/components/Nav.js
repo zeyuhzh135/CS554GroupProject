@@ -31,7 +31,7 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                <h1 className = "title">Quiz App</h1>
+                <h1 className = "title">Emanon</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes
@@ -48,7 +48,7 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                <h1 className = "title">Quiz App</h1>
+                <h1 className = "title">Emanon</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes
