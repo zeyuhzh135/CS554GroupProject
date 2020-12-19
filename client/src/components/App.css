@@ -105,7 +105,10 @@
 .title {
 	color: #61dafb !important;
 }
-
+.edit-profile-card{
+	font-size: 20px;
+	font-weight:bold
+}
 .start-quiz {
 	font-size: 20px;
 	padding-left: 8px;
@@ -163,6 +166,11 @@
 
 .question-card-area{
 	margin: 20px;
+}
+
+.option{
+	color:red;
+	background-color:black;
 }
 
 ul {
