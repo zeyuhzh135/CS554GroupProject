@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios'
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './App.css';
 import { AuthContext } from './context/AuthContext';
 
 const Home = (props) => {
 	const authContext = useContext(AuthContext);
-	const [loading, setLoading] = useState(false);
 	const [classList, setClassList] = useState(undefined);
 	const [theUser,settheUser] = useState(undefined);
+	const [userName, setUserName] = useState(undefined);
 	let classes;
 	let newQuiz;
 	useEffect( ()=>{
-		setLoading(true);
 		async function getclasses(){
 			try{
 				let apires = await axios.get('/classes');
@@ -25,6 +24,7 @@ const Home = (props) => {
 			try{
 				let theU = await axios.get('/users/profile');
 				settheUser(theU.data.data);
+				setUserName(theU.data.data.lastName + " " + theU.data.data.firstName);
 			}catch(e){
 				console.log(e);
 			}
@@ -63,7 +63,6 @@ const Home = (props) => {
 				if(s.classId===theClass._id){
 					startquiz = true;
 				}
-				break;
 			}
 			let JoinButton = null;
 			let startButton = null;
@@ -71,6 +70,9 @@ const Home = (props) => {
 				JoinButton= <Link className='start-quiz' onClick={(e) => handleJoin(e, theClass._id)}>
 					Join Chat
 				</Link>
+			}
+			else {
+				JoinButton = <Link className='start-quiz' to={`/chat?roomId=${theClass._id}&name=${theClass.name}&userName=${userName}`}>Join Chatroom</Link>
 			}
 			if(!startquiz){
 				startButton = <Link className='start-quiz' to={`/quiz/${theClass._id}`}>
@@ -104,11 +106,11 @@ const Home = (props) => {
 						{theClass.name}
 					</h2>
 					<p className='quiz-cate' key= {theClass.category}>
-						Category:
+						Category: 
 						{theClass.category}
 					</p>
 					<p className='quiz-description' key={theClass.description}>
-						Description:
+						Description: 
 						{theClass.description}
 					</p>
 					<br/>

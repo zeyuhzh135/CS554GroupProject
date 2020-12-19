@@ -10,7 +10,7 @@ const Score = (props)=>{
 
     return(
         <div>
-            <Link to={`/scoreboard/${quizId}`}>{quizName}: {quizScore}</Link>
+            <Link className = 'regularlink' to={`/scoreboard/${quizId}`}>{quizName}: {quizScore}</Link>
             <br/>
         </div>
           

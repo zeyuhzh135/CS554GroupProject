@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios'
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './App.css';
 import { AuthContext } from './context/AuthContext';
 
@@ -44,7 +44,6 @@ const Home = (props) => {
 				if(s.classId===theClass._id){
 					startquiz = true;
 				}
-				break;
 			}
 			let startButton = null;
 			if(!startquiz){

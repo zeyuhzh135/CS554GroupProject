@@ -31,7 +31,7 @@ const NewQuiz = (props) => {
 
     const updateFieldChanged = async (input, value, index) => {
         let newArr = answer;
-        if(newArr[index] == undefined) {
+        if(newArr[index] === undefined) {
             newArr[index] = {};
         }
         newArr[index][input] = value;
@@ -84,7 +84,13 @@ const NewQuiz = (props) => {
                     <br/>
                     <label class="editQuizLabel">
                         Answer: 
-                        < input type="text" name="Answer" onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                        <select onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}>
+                            <option value=""></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </label>
                     <br/>
                 </div>
@@ -132,7 +138,13 @@ const NewQuiz = (props) => {
                     <br/>
                     <label class="editQuizLabel">
                         Answer: 
-                        <input type="text" name="Answer"  onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}/>
+                        <select onChange={(e) => updateFieldChanged("correctAns", e.target.value, i)}>
+                            <option value=""></option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </label>
                     <br/>
                 </div>
@@ -161,19 +173,19 @@ const NewQuiz = (props) => {
         if(!category) error.push(<p>Need category</p>);
         if(!name) error.push(<p>Need name</p>);
         if(!description) error.push(<p>Need description</p>);
-        if(answer.length==0) error.push(<p>At least one question is need for a quiz</p>);
+        if(answer.length===0) error.push(<p>At least one question is need for a quiz</p>);
         for(let i=0;i<answer.length;i++){
             if(!answer[i].A||!answer[i].B||!answer[i].C||!answer[i].D||!answer[i].question||!answer[i].correctAns){
-                error.push(<p>Need to fill all fields in question {i}</p>);
+                error.push(<p>Need to fill all fields in question #{i+1}</p>);
             }
             if(answer[i].correctAns){
-                if(answer[i].correctAns != "A" && answer[i].correctAns !="B"&& answer[i].correctAns != "C" && answer[i].correctAns !="D"){
-                    error.push(<p>The anwers are only allowed as A, B, C, D in question {i}</p>);
+                if(answer[i].correctAns !== "A" && answer[i].correctAns !=="B"&& answer[i].correctAns !== "C" && answer[i].correctAns !=="D"){
+                    error.push(<p>The anwers are only allowed as A, B, C, D in question #{i+1}</p>);
                 }
             }
         }
         console.log(answer);
-        if(error.length==0){
+        if(error.length===0){
             let theUser = await axios.get('/users/profile');
             let newclass = await axios.post('/classes',{name: name, user: theUser.data.data._id, category: category, description: description, questions: answer});
             let questions = newclass.data.data.questions

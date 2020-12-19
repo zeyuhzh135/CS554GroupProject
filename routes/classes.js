@@ -172,7 +172,7 @@ router.post('/scores',async(req,res)=>{
         }
         score = 100*rightcount/studentAns.length
         await classData.addStudentToClass(theClassInfo._id,user,score,scoreboard);
-        await userData.addClassToUser(user, theClassInfo._id);
+        // await userData.addClassToUser(user, theClassInfo._id);
     }catch(e){
         res.status(500).json({
             error:true,

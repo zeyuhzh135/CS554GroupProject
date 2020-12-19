@@ -68,7 +68,7 @@ const QuizWork = (props) => {
 
     const imageRender = (hasPicture, id) => {
         if(hasPicture){
-            return <img src={'/image/get?id='+id+'&type=class'}/>
+            return <img src={'/image/get?id='+id+'&type=class'} alt="question image"/>
         }
     }
 
@@ -98,25 +98,30 @@ const QuizWork = (props) => {
                     {imageRender(question.hasImage, question._id)}
                     <br/>
                     <div className='question-card-area'>
-                    <lable>
+                    <lable id ="Label-question">
                         Q{++i}: {question.question}
                     </lable>
                     <br/>
-                    <input type='radio' id="A" value='A' name={question.question}
+                    <lable htmlFor="A" id ="Label-A">
+                    <input type='radio' id="A" value='A' name="A"
                            onClick={updateFieldChanged('A', i - 1)}/>
-                    <lable>{question.A}</lable>
+                    </lable>{question.A}
                     <br/>
-                    <input type='radio' id="B" value='B' name={question.question}
+                    <lable htmlFor="B" id ="Label-B">
+                    <input type='radio' id="B" value='B' name="B"
                            onClick={updateFieldChanged('B', i - 1)}/>
-                    <lable>{question.B}</lable>
-                    <br/>
-                    <input type='radio' id="C" value='C' name={question.question}
+                    </lable>{question.B}
+                    <br/>   
+                    <lable htmlFor="C" id ="Label-C">
+                    <input type='radio' id="C" value='C' name="C"
                            onClick={updateFieldChanged('C', i - 1)}/>
-                    <lable>{question.C}</lable>
+                    </lable>{question.C}
                     <br/>
-                    <input type='radio' id="D" value='D' name={question.question}
+                    <lable htmlFor="D" id ="Label-D">                    
+                    <input type='radio' id="D" value='D' name="D"
                            onClick={updateFieldChanged('D', i - 1)}/>
-                    <lable>{question.D}</lable>
+                           {question.D}
+                    </lable>
                     <br/>
                     </div>
 

@@ -47,7 +47,7 @@
 	padding: 0.4rem 0.8rem;
 	background-color: white;
 	border-radius: 3px;
-	color: #28547a;
+	color: #1486e9;
 	text-decoration: none !important;
 	position: relative;
 	margin-right: 0px;
@@ -57,12 +57,15 @@
 	padding: 0.4rem 0.8rem;
 	background-color: white;
 	border-radius: 3px;
-	color: #28547a;
+	color: #1282e4;
 	text-decoration: none !important;
 	position: relative;
 	margin-right: 0px;
 }
 
+.regularlink{
+	color: #073791
+}
 .navbar{
 	margin-left: 5%;
 	margin-right: 6%;
@@ -102,13 +105,17 @@
 .title {
 	color: #61dafb !important;
 }
-
+.edit-profile-card{
+	font-size: 20px;
+	font-weight:bold
+}
 .start-quiz {
 	font-size: 20px;
 	padding-left: 8px;
 	padding-right: 8px;
 	margin-bottom: 30px;
 	font-weight: bold;
+	color: #073791
 }
 
 .register-form-div{
@@ -160,3 +167,12 @@
 .question-card-area{
 	margin: 20px;
 }
+
+select{
+	color:black;
+	font-size: bold;
+}
+
+ul {
+	list-style-type: none;
+  }

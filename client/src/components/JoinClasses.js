@@ -56,13 +56,13 @@ const JoinClasses = () => {
                             Register
                         </h2>
                         <div>
-                            <label>Class</label><br/>
+                            <label>Class<br/>
                             <select name = 'class' {...classId} id='class'>
                                 <option value="" defaultValue="selected">Select a Class</option>
                                 {classList && classList.map((_class)=>{
                                     return <option value={_class._id}>{_class.name}</option>
                                 })}
-                            </select>
+                            </select></label>
                             <br/>
                             <br/>
                             <input type = 'button' className = 'submit-button' value = 'join' onClick={handleJoin}/>

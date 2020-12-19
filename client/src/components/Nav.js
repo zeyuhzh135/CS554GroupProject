@@ -6,14 +6,12 @@ import { AuthContext } from './context/AuthContext';
 
 const Nav = () => {
     const authContext = useContext(AuthContext);
-    const [auth,setAuth] = useState(false);
     const [authUser, setAuthUser] = useState(undefined);
     useEffect(()=>{
         const getUser = async ()=>{
             let theUser;
             try{
                 theUser = await axios.get('/users/profile');
-                if(theUser.data.logged) setAuth(true);
                 if(theUser.data.logged && theUser.data.data){
                     setAuthUser({
                         id:theUser.data.data._id,
@@ -33,7 +31,7 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                <h1 className = "title">Quiz App</h1>
+                <h1 className = "title">Emanon</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes
@@ -50,7 +48,7 @@ const Nav = () => {
         return(
             <div className='navbar'>
                 <Link className='navlink' to='/'>
-                <h1 className = "title">Quiz App</h1>
+                <h1 className = "title">Emanon</h1>
                 </Link>
                 <Link className='navlink' to='/classes'>
                     Quizzes

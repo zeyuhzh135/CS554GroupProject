@@ -1,19 +1,14 @@
-import React, { useEffect, useState,useLayoutEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, {useState,useLayoutEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
 const EmailVarification = (props)=>{
-    const [varified,setVarified] = useState(false);
     const [loading,setLoading] = useState(true);
     //const [checkedInvalidurl,setcheckedInvalidurl] = useState(false);
-    const [invalidurl,setInvalidurl] = useState(false);
     const [authUser,setAuthUser] = useState(undefined);
-    const [error, setError] = useState(false);
 
     useLayoutEffect(()=>{
         setLoading(true);
-        console.log('start');
         async function varifyurl(){
             let apires
             try{
@@ -21,18 +16,16 @@ const EmailVarification = (props)=>{
             if(apires&&!apires.error&&!apires.data.data.active){
                 setAuthUser(apires.data.data);
             }else if(apires&&!apires.valid){
-                setError(true)
+                props.history.push('/404');
             }
             }catch(e){
-                setError(true);
+                props.history.push('/404');
             }  
 
         }
        varifyurl();
-        console.log(invalidurl);
-        console.log('end');
         setLoading(false);
-    },[]);
+    },[props.match.params.id]);
 
     const handleActive=async (e)=>{
         e.preventDefault();
