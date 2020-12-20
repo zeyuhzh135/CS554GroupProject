@@ -103,22 +103,22 @@ const QuizWork = (props) => {
                     </lable>
                     <br/>
                     <lable htmlFor="A" id ="Label-A">
-                    <input type='radio' id="A" value='A' name="A"
+                    <input type='radio' id="A" value='A' name={question.question}
                            onClick={updateFieldChanged('A', i - 1)}/>
                     </lable>{question.A}
                     <br/>
                     <lable htmlFor="B" id ="Label-B">
-                    <input type='radio' id="B" value='B' name="B"
+                    <input type='radio' id="B" value='B' name={question.question}
                            onClick={updateFieldChanged('B', i - 1)}/>
                     </lable>{question.B}
                     <br/>   
                     <lable htmlFor="C" id ="Label-C">
-                    <input type='radio' id="C" value='C' name="C"
+                    <input type='radio' id="C" value='C' name={question.question}
                            onClick={updateFieldChanged('C', i - 1)}/>
                     </lable>{question.C}
                     <br/>
                     <lable htmlFor="D" id ="Label-D">                    
-                    <input type='radio' id="D" value='D' name="D"
+                    <input type='radio' id="D" value='D' name={question.question}
                            onClick={updateFieldChanged('D', i - 1)}/>
                            {question.D}
                     </lable>
